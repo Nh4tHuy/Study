@@ -30,7 +30,7 @@
             background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(4px);
             border: 2px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
 
         .glass-btn:hover:not(:disabled) {
@@ -41,46 +41,48 @@
         }
 
         .glass-btn.active {
-            background: #0284c7; /* Xanh đậm hơn khi active */
+            background: #0284c7; 
             color: white;
             border-color: #0284c7;
         }
 
-        /* Nâng cấp UI nút chọn Đáp Án (Chỉ sáng viền, giữ nền kính) */
+        /* Nâng cấp UI nút chọn Đáp Án */
         .glow-correct {
             border-color: #22c55e !important;
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.5), inset 0 0 10px rgba(34, 197, 94, 0.2) !important;
+            background: rgba(34, 197, 94, 0.1) !important;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.3), inset 0 0 10px rgba(34, 197, 94, 0.1) !important;
             color: #15803d !important;
         }
         
         .glow-wrong {
             border-color: #ef4444 !important;
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5), inset 0 0 10px rgba(239, 68, 68, 0.2) !important;
+            background: rgba(239, 68, 68, 0.1) !important;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3), inset 0 0 10px rgba(239, 68, 68, 0.1) !important;
             color: #b91c1c !important;
         }
 
         .glass-input {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             transition: all 0.3s;
         }
         
         .glass-input:focus {
             outline: none;
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
             border-color: #38bdf8;
             box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.3);
         }
 
         /* Animations */
-        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .correct-anim { animation: pulseGreen 0.5s ease; }
-        .wrong-anim { animation: shakeRed 0.5s ease; }
+        .correct-anim { animation: pulseGreen 0.4s ease; }
+        .wrong-anim { animation: shakeRed 0.4s ease; }
 
         @keyframes pulseGreen {
             0% { transform: scale(1); }
@@ -90,33 +92,65 @@
 
         @keyframes shakeRed {
             0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
+            25% { transform: translateX(-4px); }
+            50% { transform: translateX(4px); }
+            75% { transform: translateX(-4px); }
         }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Custom Scrollbar gọn hơn */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.8); }
+        ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.7); }
+
+        /* Custom Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 0.375rem;
+            background-color: white;
+            display: grid;
+            place-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .custom-checkbox::before {
+            content: "";
+            width: 0.65em;
+            height: 0.65em;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em white;
+            background-color: transparent;
+            transform-origin: bottom left;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .custom-checkbox:checked {
+            background-color: #0ea5e9;
+            border-color: #0ea5e9;
+        }
+        .custom-checkbox:checked::before {
+            transform: scale(1);
+        }
     </style>
 </head>
-<body class="p-4 md:p-8 flex justify-center">
+<body class="p-2 sm:p-4 md:p-6 flex justify-center items-start">
 
-    <div class="glass w-full max-w-5xl rounded-3xl p-6 md:p-10 flex flex-col min-h-[85vh]">
+    <div class="glass w-full max-w-5xl rounded-[2rem] p-4 sm:p-6 md:p-8 flex flex-col min-h-[90vh]">
         
         <!-- Header & Tabs -->
-        <header class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 border-b border-white/50 pb-6">
+        <header class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4 border-b border-white/50 pb-4">
             <div class="flex items-center gap-3 text-sky-800">
-                <i class="fa-solid fa-graduation-cap text-3xl"></i>
-                <h1 class="text-2xl md:text-3xl font-bold tracking-tight">Ôn Tập AVCM</h1>
+                <i class="fa-solid fa-graduation-cap text-2xl sm:text-3xl"></i>
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Ôn Tập AVCM</h1>
             </div>
-            <div class="flex bg-white/30 p-1 rounded-xl glass">
-                <button onclick="switchTab('practice')" id="tab-practice" class="glass-btn active px-6 py-2 rounded-lg font-medium flex items-center gap-2">
+            <div class="flex bg-white/30 p-1 rounded-xl glass w-full sm:w-auto">
+                <button onclick="switchTab('practice')" id="tab-practice" class="glass-btn active flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg font-medium flex justify-center items-center gap-2 text-sm sm:text-base">
                     <i class="fa-solid fa-play"></i> Ôn Tập
                 </button>
-                <button onclick="switchTab('setup')" id="tab-setup" class="glass-btn px-6 py-2 rounded-lg font-medium flex items-center gap-2 ml-1">
+                <button onclick="switchTab('setup')" id="tab-setup" class="glass-btn flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg font-medium flex justify-center items-center gap-2 ml-1 text-sm sm:text-base">
                     <i class="fa-solid fa-gear"></i> Thiết Lập
                 </button>
             </div>
@@ -124,122 +158,133 @@
 
         <!-- Main Content Area -->
         <main id="main-content" class="flex-grow flex flex-col relative">
-            <!-- Nội dung sẽ được render bằng JavaScript ở đây -->
+            <!-- Nội dung sẽ được render bằng JavaScript -->
         </main>
 
-        <!-- Footer Bản Quyền -->
-        <footer class="mt-6 pt-4 border-t border-white/30 text-center text-sm text-sky-800/70 font-medium">
-            &copy; 2026 Bản quyền thuộc về Nh4tHuy
+        <!-- Footer -->
+        <footer class="mt-4 pt-3 border-t border-white/30 text-center text-xs sm:text-sm text-sky-800/70 font-medium">
+            &copy; 2026 Bản quyền thuộc về Nh4tHuy - Vesion 2.0
         </footer>
 
     </div>
 
     <script>
         // --- DATA INITIALIZATION ---
-        // Chuyển đổi dữ liệu từ Word sang cấu trúc JSON
+        // Cập nhật cấu trúc: Thêm trường 'category' để phân loại
         const initialData = [
-            // Dạng ABCD (Trắc nghiệm điền khuyết)
-            { id: 1, type: 'mcq', question: 'A function is a _____ which establishes a _____ between two sets.', options: ['rule / relation', 'set / connection', 'variable / domain', 'formula / range'], correct: 0 },
-            { id: 2, type: 'mcq', question: 'If f is a function defined by the equation y = f(x), then x is called the _____ variable and y is the _____ variable.', options: ['dependent / independent', 'independent / dependent', 'constant / varying', 'input / limit'], correct: 1 },
-            { id: 3, type: 'mcq', question: 'The set of all possible values of f(x) as x _____ throughout the domain is called the _____ of the function f.', options: ['varies / range', 'stops / domain', 'limits / set', 'increases / graph'], correct: 0 },
-            { id: 4, type: 'mcq', question: 'The _____ of a function defined by y = f(x) is a pictorial _____ of the function.', options: ['graph / representation', 'diagram / illustration', 'chart / view', 'range / domain'], correct: 0 },
-            { id: 5, type: 'mcq', question: 'An _____ function f is one for which f(-x) = f(x) for every x in the _____ of f.', options: ['odd / range', 'even / domain', 'inverse / set', 'algebraic / limit'], correct: 1 },
-            { id: 6, type: 'mcq', question: 'Functions can be _____ in a variety of ways to make new functions.', options: ['combined', 'separated', 'reduced', 'multiplied'], correct: 0 },
-            { id: 7, type: 'mcq', question: 'The domain of the function f.g is the _____ of the domains of f and g.', options: ['intersection', 'union', 'sum', 'difference'], correct: 0 },
-            { id: 8, type: 'mcq', question: 'The function fg is called the _____ of f and g.', options: ['composition', 'multiplication', 'addition', 'division'], correct: 0 },
-            { id: 9, type: 'mcq', question: 'A function whose _____ consists of a single number is called a constant function.', options: ['range', 'domain', 'limit', 'variable'], correct: 0 },
-            { id: 10, type: 'mcq', question: 'Cubic functions are _____ of degree 3.', options: ['polynomials', 'rational', 'transcendental', 'logarithmic'], correct: 0 },
-            { id: 11, type: 'mcq', question: 'f(x) = √(x^2–4) is an _____ function.', options: ['algebraic', 'transcendental', 'exponential', 'even'], correct: 0 },
-            { id: 12, type: 'mcq', question: 'The graph of the _____ function f(x) = c is the _____ line y = c.', options: ['constant / horizontal', 'linear / vertical', 'cubic / curved', 'variable / straight'], correct: 0 },
-            { id: 13, type: 'mcq', question: 'The limit of a _____ times a function is the constant times the _____ of the function.', options: ['constant / limit', 'variable / domain', 'number / range', 'value / derivative'], correct: 0 },
-            { id: 14, type: 'mcq', question: 'The _____ of the _____ of two functions is the sum of their limits.', options: ['limit / sum', 'sum / limit', 'derivative / product', 'integral / difference'], correct: 0 },
-            { id: 15, type: 'mcq', question: 'The limit of a quotient of two functions is the _____ of their limits, provided the _____ does not _____ _____ zero.', options: ['sum / numerator / equal / to', 'product / variable / approach / to', 'quotient / denominator / tend / to', 'difference / function / drop / to'], correct: 2 },
+            // Dạng ABCD (Trắc nghiệm)
+            { id: 1, category: 'abcd', type: 'mcq', question: 'A function is a _____ which establishes a _____ between two sets.', options: ['rule / relation', 'set / connection', 'variable / domain', 'formula / range'], correct: 0 },
+            { id: 2, category: 'abcd', type: 'mcq', question: 'If f is a function defined by the equation y = f(x), then x is called the _____ variable and y is the _____ variable.', options: ['dependent / independent', 'independent / dependent', 'constant / varying', 'input / limit'], correct: 1 },
+            { id: 3, category: 'abcd', type: 'mcq', question: 'The set of all possible values of f(x) as x _____ throughout the domain is called the _____ of the function f.', options: ['varies / range', 'stops / domain', 'limits / set', 'increases / graph'], correct: 0 },
+            { id: 4, category: 'abcd', type: 'mcq', question: 'The _____ of a function defined by y = f(x) is a pictorial _____ of the function.', options: ['graph / representation', 'diagram / illustration', 'chart / view', 'range / domain'], correct: 0 },
+            { id: 5, category: 'abcd', type: 'mcq', question: 'An _____ function f is one for which f(-x) = f(x) for every x in the _____ of f.', options: ['odd / range', 'even / domain', 'inverse / set', 'algebraic / limit'], correct: 1 },
+            { id: 6, category: 'abcd', type: 'mcq', question: 'Functions can be _____ in a variety of ways to make new functions.', options: ['combined', 'separated', 'reduced', 'multiplied'], correct: 0 },
+            { id: 7, category: 'abcd', type: 'mcq', question: 'The domain of the function f.g is the _____ of the domains of f and g.', options: ['intersection', 'union', 'sum', 'difference'], correct: 0 },
+            { id: 8, category: 'abcd', type: 'mcq', question: 'The function fg is called the _____ of f and g.', options: ['composition', 'multiplication', 'addition', 'division'], correct: 0 },
+            { id: 9, category: 'abcd', type: 'mcq', question: 'A function whose _____ consists of a single number is called a constant function.', options: ['range', 'domain', 'limit', 'variable'], correct: 0 },
+            { id: 10, category: 'abcd', type: 'mcq', question: 'Cubic functions are _____ of degree 3.', options: ['polynomials', 'rational', 'transcendental', 'logarithmic'], correct: 0 },
+            { id: 11, category: 'abcd', type: 'mcq', question: 'f(x) = √(x^2–4) is _____ _____ function.', options: ['an / algebraic', 'a / transcendental', 'an / exponential', 'a / even'], correct: 0 },
+            { id: 12, category: 'abcd', type: 'mcq', question: 'The graph of the _____ function f(x) = c is the _____ line y = c.', options: ['constant / horizontal', 'linear / vertical', 'cubic / curved', 'variable / straight'], correct: 0 },
+            { id: 13, category: 'abcd', type: 'mcq', question: 'The limit of a _____ times a function is the constant times the _____ of the function.', options: ['constant / limit', 'variable / domain', 'number / range', 'value / derivative'], correct: 0 },
+            { id: 14, category: 'abcd', type: 'mcq', question: 'The _____ of the _____ of two functions is the sum of their limits.', options: ['limit / sum', 'sum / limit', 'derivative / product', 'integral / difference'], correct: 0 },
+            { id: 15, category: 'abcd', type: 'mcq', question: 'The limit of a quotient of two functions is the _____ of their limits, provided the _____ does not _____ _____ zero.', options: ['sum / numerator / equal / to', 'product / variable / approach / to', 'quotient / denominator / tend / to', 'difference / function / drop / to'], correct: 2 },
             
             // Dạng Đúng/Sai (True/False)
-            { id: 16, type: 'tf', question: 'In general, the composite functions fg and gf are different.', correct: true },
-            { id: 17, type: 'tf', question: 'The domain of the function f(x) = | x | is the set of nonnegative numbers.', correct: false },
-            { id: 18, type: 'tf', question: 'A function needs not be given by a single formula.', correct: true },
-            { id: 19, type: 'tf', question: 'A polynomial in x is a function that is expressible as a sum of finitely many terms of the form cx^n, where c is a constant and n is a nonnegative integer.', correct: true },
-            { id: 20, type: 'tf', question: 'A constant is a polynomial.', correct: true },
-            { id: 21, type: 'tf', question: 'A quintic function is a polynomial of degree 5.', correct: true },
-            { id: 22, type: 'tf', question: 'Rational functions are algebraic functions.', correct: true },
-            { id: 23, type: 'tf', question: 'Logarithmic functions aren\'t transcendental functions.', correct: false },
-            { id: 24, type: 'tf', question: 'In finding the limit of f(x) as x approaches a, we never consider x = a.', correct: false },
-            { id: 25, type: 'tf', question: 'The symbol ∞ is a number.', correct: false },
-            { id: 26, type: 'tf', question: 'A function can have two or more different limits at the same point.', correct: false },
-            { id: 27, type: 'tf', question: 'The limit of f(x) as x approaches a may not be equal to f(a).', correct: true },
+            { id: 16, category: 'tf', type: 'tf', question: 'In general, the composite functions fg and gf are different.', correct: true },
+            { id: 17, category: 'tf', type: 'tf', question: 'The domain of the function f(x) = | x | is the set of nonnegative numbers.', correct: false },
+            { id: 18, category: 'tf', type: 'tf', question: 'A function needs not be given by a single formula.', correct: true },
+            { id: 19, category: 'tf', type: 'tf', question: 'A polynomial in x is a function that is expressible as a sum of finitely many terms of the form cx^n, where c is a constant and n is a nonnegative integer.', correct: true },
+            { id: 20, category: 'tf', type: 'tf', question: 'A constant is a polynomial.', correct: true },
+            { id: 21, category: 'tf', type: 'tf', question: 'A quintic function is a polynomial of degree 5.', correct: true },
+            { id: 22, category: 'tf', type: 'tf', question: 'Rational functions are algebraic functions.', correct: true },
+            { id: 23, category: 'tf', type: 'tf', question: 'Logarithmic functions aren\'t transcendental functions.', correct: false },
+            { id: 24, category: 'tf', type: 'tf', question: 'In finding the limit of f(x) as x approaches a, we never consider x = a.', correct: false },
+            { id: 25, category: 'tf', type: 'tf', question: 'The symbol ∞ is a number.', correct: false },
+            { id: 26, category: 'tf', type: 'tf', question: 'A function can have two or more different limits at the same point.', correct: false },
+            { id: 27, category: 'tf', type: 'tf', question: 'The limit of f(x) as x approaches a may not be equal to f(a).', correct: true },
 
-            // Dạng câu trả lời ngắn (Bổ sung từ GIẢI BÀI TẬP, WRITING, TRANSLATION)
-            { id: 28, type: 'short', question: 'Problem: If f(x) = √x and g(x) = √(4 - x^2), find the functions f + g, f - g, f . g, and f / g ?', correct: 'Solution The domain of f(x) is [0, + ). The domain of g(x) is the interval [-2, 2]. The intersection of the domains of f and g is [0, 2]. Thus, according to the definitions, we have' },
-            { id: 29, type: 'short', question: 'Problem: If f(x) = x^2 and g(x) = √(x - 3), find the composite functions (fg)(x) and (gf)(x).', correct: 'As x approaches 3 from the left, the formula for f is f(x) = x2 - 5 so that, As x approaches 3 from the right, the formula for f is f(x) = √(x - 3) so that, Because the one-sided limits are equal, we have' },
-            { id: 30, type: 'short', question: 'Problem: Làm biếng gõ, Tự thêm vô ở phần thiết lập đi', correct: 'Đang có cái nịt, tiếp câu mới đi' },
+            // Giải Toán (Math)
+            { id: 28, category: 'math', type: 'short', question: 'Example: If f(x) = √x and g(x) = √(4 - x^2), find the functions f + g, f - g, f . g, and f / g ?', correct: 'Solution The domain of f(x) is [0, + ). The domain of g(x) is the interval [-2, 2]. The intersection of the domains of f and g is [0, 2]. Thus, according to the definitions, we have' },
+            { id: 29, category: 'math', type: 'short', question: 'Example: If f(x) = x^2 and g(x) = √(x - 3), find the composite functions (fg)(x) and (gf)(x).', correct: 'As x approaches 3 from the left, the formula for f is f(x) = x2 - 5 so that, As x approaches 3 from the right, the formula for f is f(x) = √(x - 3) so that, Because the one-sided limits are equal, we have' },
             
+            // Writing
+            { id: 31, category: 'writing', type: 'short', question: 'Writing: Write a solution to the following problem. Find the domain of the function   f(x) = 1/(x-1)(x-3). Share the solution with one of your classmates.', correct: 'Solution. Since division by 0 is not allowed, f(x) is not defined when x = 1 or x = 3. Thus the domain of f is the set {x | x <>1, x<>3}.' },
+            { id: 32, category: 'writing', type: 'short', question: 'Writing: Write one problem that asks to find the sum of two functions and then solve the problem.', correct: 'Problem: Given the two functions f(x) =2x^2+1and g(x)=x+2. Find the function (f+g)(x). Solution: The domain of f(x) and g(x) is R. The sum of two functions is defined as:  (f+g)(x) = f(x) +g(x). Thus, according to the above definition, we have (f+g)(x)=2x^2+x+3 for all x in R.' },
+            { id: 33, category: 'writing', type: 'short', question: 'Writing: List at least six words that you would like to remember from the lesson. Write one sentence using one of these words.', correct: 'a) f(x) is a polynomial of degree 4. b) g(x) is an algebraic function, specifically a square root function. c) h(x) is a rational function, which is a ratio of two polynomials. d) F(x) is a constant function, and it is also a polynomial of degree zero. e) G(x) is an exponential function with base e. f) S(x) is a polynomial of degree 7.' },
+            { id: 34, category: 'writing', type: 'short', question: 'Writing: Write 2 sentences of your own using both words "because" and "limit". Read these sentences aloud to the class.', correct: ' We cannot compute the limit lim_{x->0} 1/x because f(x) = 1/x is not defined at a=0. We cannot compute the limit lim_{x->0} 1/x by direct substitution because f(x) = 1/x is not defined at a=0.' },
+            { id: 35, category: 'writing', type: 'short', question: 'Writing: Write your opinion about the following statement: Not all limits can be evaluated by direct substitution.', correct: ' I agree with this statement, because the direct substitution method is only applicable when the function is continuous and lies within its domain at the point where the limit needs to be calculated.' },           
             
-          { id: 31, type: 'short', question: 'Writing: Write a solution to the following problem. Find the domain of the function   f(x) = 1/(x-1)(x-3). Share the solution with one of your classmates.', correct: 'Solution. Since division by 0 is not allowed, f(x) is not defined when x = 1 or x = 3. Thus the domain of f is the set {x | x <>1, x<>3}.' },
-          { id: 32, type: 'short', question: 'Writing: Write one problem that asks to find the sum of two functions and then solve the problem.', correct: 'Problem: Given the two functions f(x) =2x^2+1and g(x)=x+2. Find the function (f+g)(x). Solution: The domain of f(x) and g(x) is R. The sum of two functions is defined as:  (f+g)(x) = f(x) +g(x). Thus, according to the above definition, we have (f+g)(x)=2x^2+x+3 for all x in R.' },
-            { id: 33, type: 'short', question: 'Writing: List at least six words that you would like to remember from the lesson. Write one sentence using one of these words.', correct: 'a) f(x) is a polynomial of degree 4. b) g(x) is an algebraic function, specifically a square root function. c) h(x) is a rational function, which is a ratio of two polynomials. d) F(x) is a constant function, and it is also a polynomial of degree zero. e) G(x) is an exponential function with base e. f) S(x) is a polynomial of degree 7.' },
-           { id: 34, type: 'short', question: 'Writing: Write 2 sentences of your own using both words "because" and "limit". Read these sentences aloud to the class.', correct: ' We cannot compute the limit lim_{x->0} 1/x because f(x) = 1/x is not defined at a=0. We cannot compute the limit lim_{x->0} 1/x by direct substitution because f(x) = 1/x is not defined at a=0.' },
-           { id: 35, type: 'short', question: 'Writing: Write your opinion about the following statement: Not all limits can be evaluated by direct substitution.', correct: ' I agree with this statement, because the direct substitution method is only applicable when the function is continuous and lies within its domain at the point where the limit needs to be calculated.' },           
-            { id: 36, type: 'short', question: 'Dịch sang T. Anh: "Chứng minh rằng tổng của hai hàm số chẵn là một hàm số chẵn và tổng của hai hàm số lẻ là một hàm số lẻ. Chúng ta có thể nói gì về tổng của một hàm chẵn và một hàm lẻ?"', correct: 'Prove that the sum of two even functions is an even function and the sum of two odd functions is an odd function. What can we say about the sum of an even function and an odd function?' },
-            { id: 37, type: 'short', question: 'Dịch sang T. Anh: "Vẽ đồ thị của hàm số f(x) = x^3"', correct: 'Draw the graph of the function f(x) = x^3.' },
-            { id: 38, type: 'short', question: 'Dịch sang T. Anh: "Hãy xác định f là hàm số chẵn, lẻ hay không chẵn, không lẻ. Nếu f là chẵn hoặc lẻ, dùng tính đối xứng để vẽ đồ thị của f."', correct: 'Determine whether f is an even function, an odd function, or neither even nor odd. If f is even or odd, using the symmetry to draw the graph of f.' },
-            { id: 39, type: 'short', question: 'Dịch sang T. Anh: "Các hàm số có thể được cộng, trừ, nhân và chia để tạo nên các hàm số mới."', correct: 'Functions can be added, subtracted, multiplied, and divided to create new functions.' },
-            { id: 40, type: 'short', question: 'Dịch sang T. Anh: "Nhân một hàm số với một hằng số là trường hợp đặc biệt của nhân hai hàm số."', correct: 'Multiplying a function with by a constant is a special case of multiplying two functions.' },
-            { id: 41, type: 'short', question: 'Dịch sang T. Anh: "Hãy biểu diễn hàm số h(x) = (x-4)^5 như một hàm số hợp của hai hàm số."', correct: 'Represent the function h(x) = (x-4)^5 as a composite function of two functions.' },
-            { id: 42, type: 'short', question: 'Dịch sang T. Anh: "Miền xác định của cả hai hàm số sinx và cosx là (- vô cùng, vô cùng) và miền giá trị của chúng là khoảng đóng [-1, 1]."', correct: 'The domain of both functions sin(x) and cos(x) is the set from negative infinity to infinity. And their range is the closed interval from negative one to one.' },
-            { id: 43, type: 'short', question: 'Dịch sang T. Anh: "Một tính chất quan trọng của các hàm số sinx và cosx là các hàm số này là các hàm tuần hoàn và có chu kỳ là 2pi."', correct: 'An important character of the functions sin(x) and cos(x) is these functions are periodic functions with period of 2pi.' },
-            { id: 44, type: 'short', question: 'Dịch sang T. Anh: "Mọi phương trình đa thức f(x) = 0 đều có ít nhất một nghiệm."', correct: 'Every multi-method f(x) = 0 has at least one test.' },
-            { id: 45, type: 'short', question: 'Dịch sang T. Anh: "Giới hạn của một hàm số (nếu tồn tại) là duy nhất."', correct: 'The limit of a function (if it exists) is unique.' },
-            { id: 46, type: 'short', question: 'Dịch sang T. Anh: "Dùng các định lý về giới hạn, tính các giới hạn sau:"', correct: 'Using theorems on limits, calculate the following limits:' },
-            { id: 47, type: 'short', question: 'Dịch sang T. Anh: "Chứng minh rằng hàm số y = sin(1/x) không có giới hạn khi x dần về 0."', correct: 'Prove that the function y = sin(1/x) does not have any limit as x approaches 0.' }
+            // Translation
+            { id: 36, category: 'translation', type: 'short', question: 'Translation: "Chứng minh rằng tổng của hai hàm số chẵn là một hàm số chẵn và tổng của hai hàm số lẻ là một hàm số lẻ. Chúng ta có thể nói gì về tổng của một hàm chẵn và một hàm lẻ?"', correct: 'Prove that the sum of two even functions is an even function and the sum of two odd functions is an odd function. What can we say about the sum of an even function and an odd function?' },
+            { id: 37, category: 'translation', type: 'short', question: 'Translation: "Vẽ đồ thị của hàm số f(x) = x^3"', correct: 'Draw the graph of the function f(x) = x^3.' },
+            { id: 38, category: 'translation', type: 'short', question: 'Translation: "Hãy xác định f là hàm số chẵn, lẻ hay không chẵn, không lẻ. Nếu f là chẵn hoặc lẻ, dùng tính đối xứng để vẽ đồ thị của f."', correct: 'Determine whether f is an even function, an odd function, or neither even nor odd. If f is even or odd, using the symmetry to draw the graph of f.' },
+            { id: 39, category: 'translation', type: 'short', question: 'Translation: "Các hàm số có thể được cộng, trừ, nhân và chia để tạo nên các hàm số mới."', correct: 'Functions can be added, subtracted, multiplied, and divided to create new functions.' },
+            { id: 40, category: 'translation', type: 'short', question: 'Translation: "Nhân một hàm số với một hằng số là trường hợp đặc biệt của nhân hai hàm số."', correct: 'Multiplying a function with by a constant is a special case of multiplying two functions.' },
+            { id: 41, category: 'translation', type: 'short', question: 'Translation: "Hãy biểu diễn hàm số h(x) = (x-4)^5 như một hàm số hợp của hai hàm số."', correct: 'Represent the function h(x) = (x-4)^5 as a composite function of two functions.' },
+            { id: 42, category: 'translation', type: 'short', question: 'Translation: "Miền xác định của cả hai hàm số sinx và cosx là (- vô cùng, vô cùng) và miền giá trị của chúng là khoảng đóng [-1, 1]."', correct: 'The domain of both functions sin(x) and cos(x) is the set from negative infinity to infinity. And their range is the closed interval from negative one to one.' },
+            { id: 43, category: 'translation', type: 'short', question: 'Translation: "Một tính chất quan trọng của các hàm số sinx và cosx là các hàm số này là các hàm tuần hoàn và có chu kỳ là 2pi."', correct: 'An important character of the functions sin(x) and cos(x) is these functions are periodic functions with period of 2pi.' },
+            { id: 44, category: 'translation', type: 'short', question: 'Translation: "Mọi phương trình đa thức f(x) = 0 đều có ít nhất một nghiệm."', correct: 'Every multi-method f(x) = 0 has at least one test.' },
+            { id: 45, category: 'translation', type: 'short', question: 'Translation: "Giới hạn của một hàm số (nếu tồn tại) là duy nhất."', correct: 'The limit of a function (if it exists) is unique.' },
+            { id: 46, category: 'translation', type: 'short', question: 'Translation: "Dùng các định lý về giới hạn, tính các giới hạn sau:"', correct: 'Using theorems on limits, calculate the following limits:' },
+            { id: 47, category: 'translation', type: 'short', question: 'Translation: "Chứng minh rằng hàm số y = sin(1/x) không có giới hạn khi x dần về 0."', correct: 'Prove that the function y = sin(1/x) does not have any limit as x approaches 0.' }
         ];
 
-
-        // --- STATE MANAGEMENT ---
-        let localData = JSON.parse(localStorage.getItem('quizDataV3'));
-        // Bổ sung các câu hỏi mới nếu người dùng đang dùng data cũ bị thiếu
-        if (!localData || localData.length < initialData.length) {
+        // Khởi tạo state
+        // Dùng key mới v4 để tránh xung đột với data cũ chưa có category
+        let localData = JSON.parse(localStorage.getItem('quizDataV4'));
+        if (!localData || localData.length === 0) {
             localData = [...initialData];
-            localStorage.setItem('quizDataV3', JSON.stringify(localData));
+            localStorage.setItem('quizDataV4', JSON.stringify(localData));
         }
         let questions = localData;
-        let currentTab = 'practice'; 
         
-        // Practice State
+        let currentTab = 'practice'; 
+        let editingId = null; // Quản lý trạng thái Sửa câu hỏi
+        
         let practiceState = {
             status: 'idle', // idle, playing, result
             list: [],
             currentIndex: 0,
-            score: 0
+            score: 0,
+            timeElapsed: 0,
+            timerInterval: null
+        };
+
+        const categoryLabels = {
+            'abcd': 'Trắc nghiệm',
+            'tf': 'Đúng / Sai',
+            'math': 'Example',
+            'writing': 'Writing',
+            'translation': 'Translation'
         };
 
         // --- CORE FUNCTIONS ---
         function saveData() {
-            localStorage.setItem('quizDataV3', JSON.stringify(questions));
+            localStorage.setItem('quizDataV4', JSON.stringify(questions));
         }
 
         function switchTab(tab) {
+            if (practiceState.status === 'playing' && tab === 'setup') {
+                if(!confirm("Bài làm đang diễn ra. Bạn có chắc muốn thoát? Kết quả sẽ không được lưu.")) return;
+                stopTimer();
+            }
+
             currentTab = tab;
-            document.getElementById('tab-practice').className = `glass-btn px-6 py-2 rounded-lg font-medium flex items-center gap-2 ${tab === 'practice' ? 'active' : ''}`;
-            document.getElementById('tab-setup').className = `glass-btn px-6 py-2 rounded-lg font-medium flex items-center gap-2 ml-1 ${tab === 'setup' ? 'active' : ''}`;
+            document.getElementById('tab-practice').className = `glass-btn flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg font-medium flex justify-center items-center gap-2 text-sm sm:text-base ${tab === 'practice' ? 'active' : ''}`;
+            document.getElementById('tab-setup').className = `glass-btn flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg font-medium flex justify-center items-center gap-2 ml-1 text-sm sm:text-base ${tab === 'setup' ? 'active' : ''}`;
             
             if (tab === 'practice') {
                 practiceState.status = 'idle';
+                editingId = null;
                 renderPractice();
             } else {
                 renderSetup();
             }
         }
 
-        // THUẬT TOÁN CHẤM ĐIỂM CÂU TRẢ LỜI NGẮN (Khớp >= 50% từ)
+        // THUẬT TOÁN CHẤM ĐIỂM CÂU TRẢ LỜI NGẮN
         function checkShortAnswer(userStr, correctStr) {
-            const normalize = (str) => {
-                return str.toLowerCase()
-                          .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
-                          .split(/\s+/)
-                          .filter(word => word.length > 0);
-            };
-
+            const normalize = (str) => str.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(/\s+/).filter(w => w.length > 0);
             const userWords = normalize(userStr);
             const correctWords = normalize(correctStr);
 
@@ -248,7 +293,6 @@
 
             let matchCount = 0;
             let userWordsCopy = [...userWords];
-
             for (let cWord of correctWords) {
                 let index = userWordsCopy.indexOf(cWord);
                 if (index !== -1) {
@@ -256,9 +300,7 @@
                     userWordsCopy.splice(index, 1);
                 }
             }
-
-            const matchPercentage = matchCount / correctWords.length;
-            return matchPercentage >= 0.5;
+            return (matchCount / correctWords.length) >= 0.5;
         }
 
         function shuffleArray(array) {
@@ -268,49 +310,76 @@
             }
         }
 
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function startTimer() {
+            practiceState.timeElapsed = 0;
+            clearInterval(practiceState.timerInterval);
+            practiceState.timerInterval = setInterval(() => {
+                practiceState.timeElapsed++;
+                const timerEl = document.getElementById('timer-display');
+                if(timerEl) timerEl.innerText = formatTime(practiceState.timeElapsed);
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(practiceState.timerInterval);
+        }
+
         // --- RENDER: SETUP TAB ---
         function renderSetup() {
             const container = document.getElementById('main-content');
             
             let html = `
-                <div class="flex gap-6 h-full flex-col lg:flex-row fade-in">
-                    <!-- Form Thêm Câu Hỏi -->
-                    <div class="glass p-6 rounded-2xl lg:w-1/3 flex flex-col gap-4 bg-white/50">
-                        <h2 class="text-xl font-bold text-sky-800 border-b border-sky-200 pb-2"><i class="fa-solid fa-plus-circle mr-2"></i>Thêm Câu Hỏi</h2>
+                <div class="flex gap-4 sm:gap-6 h-full flex-col lg:flex-row fade-in">
+                    <!-- Form Thêm/Sửa Câu Hỏi -->
+                    <div class="glass p-4 sm:p-6 rounded-2xl lg:w-1/3 flex flex-col gap-4 bg-white/50 h-fit" id="form-container">
+                        <div class="flex justify-between items-center border-b border-sky-200 pb-2">
+                            <h2 class="text-lg sm:text-xl font-bold text-sky-800" id="form-title">
+                                <i class="fa-solid fa-plus-circle mr-2"></i>Thêm Câu Hỏi
+                            </h2>
+                            ${editingId ? `<button onclick="cancelEdit()" class="text-sm text-slate-500 hover:text-red-500"><i class="fa-solid fa-times"></i> Hủy sửa</button>` : ''}
+                        </div>
                         
                         <div>
-                            <label class="block text-sm font-semibold mb-1 text-slate-600">Loại câu hỏi</label>
-                            <select id="q-type" onchange="renderSetupFormFields()" class="glass-input w-full p-2.5 rounded-lg">
-                                <option value="mcq">Trắc nghiệm</option>
+                            <label class="block text-sm font-semibold mb-1 text-slate-600">Chủ đề (Loại câu hỏi)</label>
+                            <select id="q-category" onchange="renderSetupFormFields()" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base">
+                                <option value="abcd">Trắc nghiệm</option>
                                 <option value="tf">Đúng / Sai</option>
-                                <option value="short">Trả lời ngắn</option>
+                                <option value="math">Example</option>
+                                <option value="writing">Writing</option>
+                                <option value="translation">Translation</option>
                             </select>
                         </div>
                         
                         <div>
                             <label class="block text-sm font-semibold mb-1 text-slate-600">Câu hỏi</label>
-                            <textarea id="q-text" rows="3" class="glass-input w-full p-2.5 rounded-lg" placeholder="Nhập nội dung câu hỏi..."></textarea>
+                            <textarea id="q-text" rows="3" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base" placeholder="Nhập nội dung câu hỏi..."></textarea>
                         </div>
 
                         <div id="dynamic-fields" class="flex flex-col gap-3"></div>
 
-                        <button onclick="addQuestion()" class="mt-4 bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 rounded-lg shadow-lg shadow-sky-500/30 transition-all transform hover:scale-[1.02] active:scale-95">
+                        <button onclick="saveQuestion()" id="btn-save-q" class="mt-2 bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 rounded-lg shadow-lg shadow-sky-500/30 transition-all transform hover:scale-[1.02] active:scale-95 text-sm sm:text-base">
                             Lưu Câu Hỏi
                         </button>
                     </div>
 
                     <!-- Danh sách câu hỏi -->
-                    <div class="glass p-6 rounded-2xl lg:w-2/3 flex flex-col bg-white/40 overflow-hidden">
-                        <h2 class="text-xl font-bold text-sky-800 border-b border-sky-200 pb-2 mb-4">
-                            <i class="fa-solid fa-list mr-2"></i>Ngân Hàng Câu Hỏi (${questions.length})
+                    <div class="glass p-4 sm:p-6 rounded-2xl lg:w-2/3 flex flex-col bg-white/40 overflow-hidden mt-4 lg:mt-0">
+                        <h2 class="text-lg sm:text-xl font-bold text-sky-800 border-b border-sky-200 pb-2 mb-4 flex justify-between items-center">
+                            <span><i class="fa-solid fa-list mr-2"></i>Ngân Hàng (${questions.length})</span>
                         </h2>
-                        <div class="overflow-y-auto flex-grow pr-2 space-y-3" style="max-height: 50vh;">
-                            ${questions.map((q, index) => renderQuestionItemSetup(q, index)).join('')}
-                            ${questions.length === 0 ? '<p class="text-slate-500 text-center py-10">Chưa có câu hỏi nào. Hãy thêm ở cột bên trái.</p>' : ''}
+                        <div class="overflow-y-auto flex-grow pr-2 space-y-3" style="max-height: 55vh;">
+                            ${questions.map((q) => renderQuestionItemSetup(q)).join('')}
+                            ${questions.length === 0 ? '<p class="text-slate-500 text-center py-10">Chưa có câu hỏi nào.</p>' : ''}
                         </div>
-                        <div class="pt-4 border-t border-sky-200 mt-4 flex justify-between items-center">
-                            <p class="text-sm text-slate-500"><i class="fa-solid fa-circle-info mr-1"></i>Dữ liệu được lưu tự động.</p>
-                            <button onclick="resetToDefault()" class="text-sm text-red-500 hover:text-red-700 underline">Khôi phục dữ liệu gốc</button>
+                        <div class="pt-4 border-t border-sky-200 mt-4 flex justify-between items-center flex-wrap gap-2">
+                            <p class="text-xs sm:text-sm text-slate-500"><i class="fa-solid fa-circle-info mr-1"></i>Tự động lưu.</p>
+                            <button onclick="resetToDefault()" class="text-xs sm:text-sm text-red-500 hover:text-red-700 underline font-medium">Khôi phục dữ liệu gốc</button>
                         </div>
                     </div>
                 </div>
@@ -319,110 +388,164 @@
             renderSetupFormFields();
         }
 
-        function renderSetupFormFields() {
-            const type = document.getElementById('q-type').value;
+        function renderSetupFormFields(qData = null) {
+            const category = document.getElementById('q-category').value;
             const container = document.getElementById('dynamic-fields');
             let html = '';
 
-            if (type === 'mcq') {
+            if (category === 'abcd') {
                 html = `
-                    <label class="block text-sm font-semibold mb-1 text-slate-600">Các lựa chọn (Tích chọn đáp án đúng)</label>
+                    <label class="block text-sm font-semibold mb-1 text-slate-600">Lựa chọn (Tích chọn đáp án đúng)</label>
                     <div class="space-y-2">
                         ${[0, 1, 2, 3].map(i => `
                             <div class="flex items-center gap-2">
-                                <input type="radio" name="mcq-correct" value="${i}" ${i===0 ? 'checked' : ''} class="w-5 h-5 text-sky-500">
-                                <input type="text" id="mcq-opt-${i}" class="glass-input w-full p-2 rounded-lg" placeholder="Lựa chọn ${String.fromCharCode(65 + i)}">
+                                <input type="radio" name="mcq-correct" value="${i}" ${qData && qData.correct === i ? 'checked' : (i===0 && !qData ? 'checked' : '')} class="w-4 h-4 sm:w-5 sm:h-5 text-sky-500 custom-checkbox rounded-full">
+                                <input type="text" id="mcq-opt-${i}" value="${qData ? qData.options[i] : ''}" class="glass-input w-full p-2 rounded-lg text-sm sm:text-base" placeholder="Lựa chọn ${String.fromCharCode(65 + i)}">
                             </div>
                         `).join('')}
                     </div>
                 `;
-            } else if (type === 'tf') {
+            } else if (category === 'tf') {
+                const isTrue = qData ? qData.correct : true;
                 html = `
                     <label class="block text-sm font-semibold mb-2 text-slate-600">Đáp án đúng là:</label>
                     <div class="flex gap-4">
                         <label class="flex items-center gap-2 cursor-pointer p-2 glass rounded-lg flex-1 justify-center hover:bg-white/60">
-                            <input type="radio" name="tf-correct" value="true" checked class="w-5 h-5"> 
-                            <span class="font-bold text-green-600">Đúng (True)</span>
+                            <input type="radio" name="tf-correct" value="true" ${isTrue ? 'checked' : ''} class="w-4 h-4 sm:w-5 sm:h-5 custom-checkbox rounded-full"> 
+                            <span class="font-bold text-green-600 text-sm sm:text-base">Đúng (True)</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer p-2 glass rounded-lg flex-1 justify-center hover:bg-white/60">
-                            <input type="radio" name="tf-correct" value="false" class="w-5 h-5"> 
-                            <span class="font-bold text-red-600">Sai (False)</span>
+                            <input type="radio" name="tf-correct" value="false" ${!isTrue ? 'checked' : ''} class="w-4 h-4 sm:w-5 sm:h-5 custom-checkbox rounded-full"> 
+                            <span class="font-bold text-red-600 text-sm sm:text-base">Sai (False)</span>
                         </label>
                     </div>
                 `;
-            } else if (type === 'short') {
+            } else { // short answer types
                 html = `
-                    <label class="block text-sm font-semibold mb-1 text-slate-600">Đoạn đáp án đúng (Hệ thống sẽ duyệt khớp >=50% từ)</label>
-                    <textarea id="short-ans" rows="3" class="glass-input w-full p-2.5 rounded-lg" placeholder="Nhập đáp án chuẩn..."></textarea>
+                    <label class="block text-sm font-semibold mb-1 text-slate-600">Đoạn đáp án đúng (Hệ thống duyệt khớp >=50% từ khóa)</label>
+                    <textarea id="short-ans" rows="3" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base" placeholder="Nhập đáp án chuẩn...">${qData ? qData.correct : ''}</textarea>
                 `;
             }
             container.innerHTML = html;
         }
 
-        function renderQuestionItemSetup(q, index) {
-            let badge = '';
+        function renderQuestionItemSetup(q) {
+            let badgeColors = {
+                'abcd': 'bg-blue-100 text-blue-700',
+                'tf': 'bg-purple-100 text-purple-700',
+                'math': 'bg-orange-100 text-orange-700',
+                'writing': 'bg-emerald-100 text-emerald-700',
+                'translation': 'bg-rose-100 text-rose-700'
+            };
+            let badge = `<span class="px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded ${badgeColors[q.category] || 'bg-gray-100'} whitespace-nowrap">${categoryLabels[q.category]}</span>`;
+            
             let ansPreview = '';
-            if (q.type === 'mcq') {
-                badge = '<span class="px-2 py-1 text-xs font-bold rounded bg-blue-100 text-blue-700">ABCD</span>';
-                ansPreview = `Đáp án: <strong>${q.options[q.correct]}</strong>`;
-            } else if (q.type === 'tf') {
-                badge = '<span class="px-2 py-1 text-xs font-bold rounded bg-purple-100 text-purple-700">Đ/S</span>';
-                ansPreview = `Đáp án: <strong>${q.correct ? 'Đúng' : 'Sai'}</strong>`;
-            } else {
-                badge = '<span class="px-2 py-1 text-xs font-bold rounded bg-orange-100 text-orange-700">Ngắn</span>';
-                ansPreview = `Mẫu: <em>${q.correct}</em>`;
-            }
+            if (q.category === 'abcd') ansPreview = `Đáp án: <strong>${q.options[q.correct]}</strong>`;
+            else if (q.category === 'tf') ansPreview = `Đáp án: <strong>${q.correct ? 'Đúng' : 'Sai'}</strong>`;
+            else ansPreview = `Mẫu: <em>${q.correct}</em>`;
 
             return `
-                <div class="glass p-3 rounded-lg flex justify-between items-start gap-3 bg-white/50 hover:bg-white/80 transition">
-                    <div class="flex-grow">
-                        <div class="flex items-center gap-2 mb-1">
+                <div class="glass p-3 rounded-xl flex justify-between items-start gap-3 bg-white/60 hover:bg-white/90 transition shadow-sm" id="item-${q.id}">
+                    <div class="flex-grow min-w-0">
+                        <div class="flex items-center gap-2 mb-1 flex-wrap">
                             ${badge}
-                            <span class="font-semibold text-slate-800 text-sm line-clamp-1">${q.question}</span>
+                            <span class="font-semibold text-slate-800 text-sm sm:text-base line-clamp-2 leading-snug">${q.question}</span>
                         </div>
-                        <p class="text-xs text-slate-600 ml-10">${ansPreview}</p>
+                        <p class="text-xs sm:text-sm text-slate-500 line-clamp-1 italic">${ansPreview}</p>
                     </div>
-                    <button onclick="deleteQuestion(${q.id})" class="text-red-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 transition">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+                    <div class="flex flex-col sm:flex-row gap-1 sm:gap-2 shrink-0">
+                        <button onclick="editQuestion(${q.id})" class="text-sky-500 hover:text-sky-700 p-2 rounded-lg hover:bg-sky-50 transition" title="Sửa">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteQuestion(${q.id})" class="text-red-400 hover:text-red-600 p-2 rounded-lg hover:bg-red-50 transition" title="Xóa">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
             `;
         }
 
-        function addQuestion() {
-            const type = document.getElementById('q-type').value;
+        // Action: Edit
+        function editQuestion(id) {
+            editingId = id;
+            const q = questions.find(x => x.id === id);
+            
+            document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-pen mr-2"></i>Sửa Câu Hỏi';
+            const btn = document.getElementById('btn-save-q');
+            btn.innerHTML = 'Cập Nhật Thay Đổi';
+            btn.classList.replace('bg-sky-500', 'bg-emerald-500');
+            btn.classList.replace('hover:bg-sky-600', 'hover:bg-emerald-600');
+            btn.classList.replace('shadow-sky-500/30', 'shadow-emerald-500/30');
+
+            document.getElementById('q-category').value = q.category;
+            document.getElementById('q-text').value = q.question;
+            renderSetupFormFields(q);
+
+            // Highlight the editing item visually
+            document.querySelectorAll('[id^="item-"]').forEach(el => el.classList.remove('border-2', 'border-emerald-400'));
+            const item = document.getElementById(`item-${id}`);
+            if(item) {
+                item.classList.add('border-2', 'border-emerald-400');
+                item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            // Scroll to form on mobile
+            if(window.innerWidth < 1024) {
+                document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function cancelEdit() {
+            editingId = null;
+            renderSetup(); // Reset form & list
+        }
+
+        function saveQuestion() {
+            const category = document.getElementById('q-category').value;
+            let type = (category === 'abcd') ? 'mcq' : (category === 'tf' ? 'tf' : 'short');
             const text = document.getElementById('q-text').value.trim();
 
             if (!text) return alert('Vui lòng nhập nội dung câu hỏi!');
 
-            let newQ = { id: Date.now(), type, question: text };
+            let newQ = { 
+                id: editingId ? editingId : Date.now(), 
+                category, 
+                type, 
+                question: text 
+            };
 
-            if (type === 'mcq') {
+            if (category === 'abcd') {
                 const options = [];
                 for (let i = 0; i < 4; i++) {
                     const optVal = document.getElementById(`mcq-opt-${i}`).value.trim();
                     if (!optVal) return alert('Vui lòng nhập đầy đủ 4 lựa chọn ABCD!');
                     options.push(optVal);
                 }
-                const correct = parseInt(document.querySelector('input[name="mcq-correct"]:checked').value);
                 newQ.options = options;
-                newQ.correct = correct;
-            } else if (type === 'tf') {
-                const correct = document.querySelector('input[name="tf-correct"]:checked').value === 'true';
-                newQ.correct = correct;
-            } else if (type === 'short') {
+                newQ.correct = parseInt(document.querySelector('input[name="mcq-correct"]:checked').value);
+            } else if (category === 'tf') {
+                newQ.correct = document.querySelector('input[name="tf-correct"]:checked').value === 'true';
+            } else {
                 const ans = document.getElementById('short-ans').value.trim();
                 if (!ans) return alert('Vui lòng nhập đáp án chuẩn!');
                 newQ.correct = ans;
             }
 
-            questions.push(newQ);
+            if (editingId) {
+                const index = questions.findIndex(x => x.id === editingId);
+                questions[index] = newQ;
+                editingId = null;
+            } else {
+                questions.push(newQ);
+            }
+
             saveData();
             renderSetup();
         }
 
         function deleteQuestion(id) {
             if (confirm('Bạn có chắc muốn xóa câu này?')) {
+                if(editingId === id) cancelEdit();
                 questions = questions.filter(q => q.id !== id);
                 saveData();
                 renderSetup();
@@ -430,12 +553,13 @@
         }
 
         function resetToDefault() {
-            if (confirm('Khôi phục dữ liệu gốc sẽ xóa các câu hỏi bạn tự thêm. Tiếp tục?')) {
+            if (confirm('Khôi phục dữ liệu gốc sẽ XÓA TOÀN BỘ các câu hỏi bạn tự thêm hoặc đã sửa. Tiếp tục?')) {
                 questions = [...initialData];
                 saveData();
-                renderSetup();
+                cancelEdit();
             }
         }
+
 
         // --- RENDER: PRACTICE TAB ---
         function renderPractice() {
@@ -443,13 +567,23 @@
             
             if (practiceState.status === 'idle') {
                 container.innerHTML = `
-                    <div class="flex-grow flex flex-col items-center justify-center text-center fade-in">
-                        <div class="glass p-10 rounded-3xl max-w-lg w-full bg-white/40">
-                            <div class="text-sky-500 mb-6"><i class="fa-solid fa-rocket text-6xl"></i></div>
-                            <h2 class="text-3xl font-bold text-slate-800 mb-4">Sẵn sàng ôn tập?</h2>
-                            <p class="text-slate-600 mb-8">Trình tự ôn tập: <span class="font-bold">Trắc nghiệm ABCD &rarr; Đúng / Sai &rarr; Trả lời ngắn</span>.</p>
-                            <button onclick="startPractice()" class="w-full bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-bold py-4 rounded-xl shadow-xl shadow-blue-500/30 text-lg transition-transform transform hover:scale-105">
-                                Bắt Đầu Ngay
+                    <div class="flex-grow flex flex-col items-center justify-center text-center fade-in py-4">
+                        <div class="glass p-6 md:p-10 rounded-3xl max-w-xl w-full bg-white/50 shadow-sm">
+                            <div class="text-sky-500 mb-4"><i class="fa-solid fa-rocket text-5xl md:text-6xl"></i></div>
+                            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">Bắt Đầu Ôn Tập</h2>
+                            <p class="text-slate-600 mb-6 text-sm md:text-base">Chọn các chủ đề bạn muốn luyện tập hôm nay:</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left mb-8 bg-white/40 p-4 rounded-xl border border-white/60">
+                                ${Object.keys(categoryLabels).map(cat => `
+                                    <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/50 cursor-pointer transition select-none">
+                                        <input type="checkbox" class="cat-filter custom-checkbox" value="${cat}" checked>
+                                        <span class="font-medium text-slate-700">${categoryLabels[cat]}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+
+                            <button onclick="startPractice()" class="w-full bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-bold py-3.5 md:py-4 rounded-xl shadow-xl shadow-blue-500/30 text-lg transition-transform transform hover:scale-[1.02] active:scale-95">
+                                <i class="fa-solid fa-play mr-2"></i> Bắt Đầu Ngay
                             </button>
                         </div>
                     </div>
@@ -461,65 +595,76 @@
                 let inputArea = '';
                 if (q.type === 'mcq') {
                     inputArea = `
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-6">
                             ${q.options.map((opt, i) => `
-                                <button onclick="submitAnswer(${i}, this)" class="glass-btn p-4 rounded-xl text-left hover:bg-sky-50 transition font-medium text-slate-700">
-                                    <span class="inline-block w-8 h-8 rounded-full bg-sky-100 text-sky-700 text-center leading-8 mr-3 font-bold">${String.fromCharCode(65 + i)}</span>
-                                    ${opt}
+                                <button onclick="submitAnswer(${i}, this)" class="glass-btn p-3 md:p-4 rounded-xl text-left hover:bg-sky-50 transition font-medium text-slate-700 text-sm md:text-base flex items-center">
+                                    <span class="shrink-0 inline-flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-sky-100 text-sky-700 mr-3 font-bold text-xs md:text-sm">${String.fromCharCode(65 + i)}</span>
+                                    <span>${opt}</span>
                                 </button>
                             `).join('')}
                         </div>
                     `;
                 } else if (q.type === 'tf') {
                     inputArea = `
-                        <div class="flex gap-6 mt-8 justify-center">
-                            <button onclick="submitAnswer(true, this)" class="glass-btn p-6 rounded-2xl w-40 text-center hover:bg-green-50 transition group">
-                                <i class="fa-solid fa-check text-4xl text-green-500 mb-2 group-hover:scale-110 transition-transform"></i>
-                                <div class="font-bold text-xl text-slate-700 group-hover:text-green-700 transition">Đúng</div>
+                        <div class="flex gap-4 md:gap-6 mt-8 justify-center">
+                            <button onclick="submitAnswer(true, this)" class="glass-btn p-4 md:p-6 rounded-2xl w-32 md:w-40 text-center hover:bg-green-50 transition group flex flex-col items-center">
+                                <i class="fa-solid fa-check text-3xl md:text-4xl text-green-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                                <div class="font-bold text-lg md:text-xl text-slate-700 group-hover:text-green-700 transition">Đúng</div>
                             </button>
-                            <button onclick="submitAnswer(false, this)" class="glass-btn p-6 rounded-2xl w-40 text-center hover:bg-red-50 transition group">
-                                <i class="fa-solid fa-xmark text-4xl text-red-500 mb-2 group-hover:scale-110 transition-transform"></i>
-                                <div class="font-bold text-xl text-slate-700 group-hover:text-red-700 transition">Sai</div>
+                            <button onclick="submitAnswer(false, this)" class="glass-btn p-4 md:p-6 rounded-2xl w-32 md:w-40 text-center hover:bg-red-50 transition group flex flex-col items-center">
+                                <i class="fa-solid fa-xmark text-3xl md:text-4xl text-red-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                                <div class="font-bold text-lg md:text-xl text-slate-700 group-hover:text-red-700 transition">Sai</div>
                             </button>
                         </div>
                     `;
                 } else {
                     inputArea = `
                         <div class="mt-6">
-                            <textarea id="practice-short-input" rows="4" class="glass-input w-full p-4 rounded-xl text-lg resize-none text-slate-700" placeholder="Nhập câu trả lời của bạn vào đây..."></textarea>
-                            <button onclick="submitShortAnswer(this)" class="mt-4 w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 rounded-xl shadow-md transition">
-                                <i class="fa-solid fa-paper-plane mr-2"></i> Gửi đáp án
+                            <textarea id="practice-short-input" rows="4" class="glass-input w-full p-3 md:p-4 rounded-xl text-base md:text-lg resize-none text-slate-700" placeholder="Nhập câu trả lời của bạn vào đây..."></textarea>
+                            <button onclick="submitShortAnswer(this)" class="mt-3 md:mt-4 w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 rounded-xl shadow-md transition text-sm md:text-base">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> Check đáp án
                             </button>
                         </div>
                     `;
                 }
 
                 container.innerHTML = `
-                    <div class="flex flex-col h-full fade-in max-w-4xl w-full mx-auto">
-                        <!-- Progress -->
-                        <div class="mb-8">
-                            <div class="flex justify-between text-sm font-bold text-slate-500 mb-2">
-                                <span>Câu hỏi ${practiceState.currentIndex + 1} / ${practiceState.list.length}</span>
-                                <span class="text-sky-600">Điểm: ${practiceState.score}</span>
+                    <div class="flex flex-col h-full fade-in max-w-4xl w-full mx-auto py-2">
+                        <!-- Progress & Timer -->
+                        <div class="mb-4 md:mb-6">
+                            <div class="flex justify-between items-end text-sm md:text-base font-bold text-slate-600 mb-2">
+                                <div>
+                                    <span class="block text-xs text-slate-400 font-normal">Tiến độ</span>
+                                    <span>${practiceState.currentIndex + 1} / ${practiceState.list.length}</span>
+                                </div>
+                                <div class="text-center px-4 py-1 bg-white/40 rounded-lg shadow-sm border border-white/60">
+                                    <i class="fa-regular fa-clock text-sky-500 mr-1"></i>
+                                    <span id="timer-display" class="font-mono text-slate-800">${formatTime(practiceState.timeElapsed)}</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-xs text-slate-400 font-normal">Điểm</span>
+                                    <span class="text-sky-600 text-lg leading-none">${practiceState.score}</span>
+                                </div>
                             </div>
-                            <div class="h-2 w-full bg-white/50 rounded-full overflow-hidden">
+                            <div class="h-2 md:h-2.5 w-full bg-white/50 rounded-full overflow-hidden shadow-inner">
                                 <div class="h-full bg-gradient-to-r from-sky-400 to-blue-500 transition-all duration-500" style="width: ${progress}%"></div>
                             </div>
                         </div>
 
                         <!-- Question Card -->
-                        <div class="glass p-8 md:p-12 rounded-3xl bg-white/60 flex-grow shadow-sm relative overflow-hidden" id="question-card">
-                            <div class="text-xs font-bold uppercase tracking-wider text-sky-500 mb-4 flex items-center gap-2">
-                                <i class="fa-solid ${q.type === 'mcq' ? 'fa-list-ul' : (q.type === 'tf' ? 'fa-scale-balanced' : 'fa-pen-clip')}"></i>
-                                ${q.type === 'mcq' ? 'Trắc nghiệm ABCD' : (q.type === 'tf' ? 'Đúng / Sai' : 'Trả lời ngắn (Khớp từ khóa)')}
+                        <div class="glass p-5 md:p-10 rounded-3xl bg-white/60 flex-grow shadow-sm relative overflow-hidden" id="question-card">
+                            <div class="text-[10px] md:text-xs font-bold uppercase tracking-wider text-sky-500 mb-3 flex items-center gap-1.5 border border-sky-200 bg-sky-50 w-fit px-3 py-1 rounded-full">
+                                <i class="fa-solid ${q.category === 'abcd' ? 'fa-list-ul' : (q.category === 'tf' ? 'fa-scale-balanced' : 'fa-pen-clip')}"></i>
+                                ${categoryLabels[q.category]}
                             </div>
-                            <h3 class="text-2xl md:text-3xl font-semibold text-slate-800 leading-snug">${q.question}</h3>
+                            
+                            <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-slate-800 leading-relaxed md:leading-snug break-words">
+                                ${q.question}
+                            </h3>
                             
                             ${inputArea}
 
-                            <div id="feedback-area" class="mt-6 hidden">
-                                <!-- Feedback renders here -->
-                            </div>
+                            <div id="feedback-area" class="mt-5 hidden"></div>
                         </div>
                     </div>
                 `;
@@ -528,27 +673,32 @@
                 let rankMsg = percentage >= 80 ? 'Xuất sắc! 🎉' : (percentage >= 50 ? 'Khá tốt! 👍' : 'Cần cố gắng hơn! 💪');
 
                 container.innerHTML = `
-                    <div class="flex-grow flex flex-col items-center justify-center text-center fade-in">
-                        <div class="glass p-10 rounded-3xl max-w-lg w-full bg-white/50 relative overflow-hidden">
-                            <div class="absolute -top-10 -right-10 w-40 h-40 bg-sky-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50"></div>
-                            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50"></div>
+                    <div class="flex-grow flex flex-col items-center justify-center text-center fade-in py-6">
+                        <div class="glass p-8 md:p-10 rounded-[2rem] max-w-md w-full bg-white/60 relative overflow-hidden shadow-sm">
+                            <div class="absolute -top-10 -right-10 w-40 h-40 bg-sky-300 rounded-full mix-blend-multiply filter blur-2xl opacity-40"></div>
+                            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-300 rounded-full mix-blend-multiply filter blur-2xl opacity-40"></div>
                             
-                            <h2 class="text-3xl font-bold text-slate-800 mb-2">Hoàn thành Ôn tập</h2>
-                            <p class="text-slate-600 mb-6">${rankMsg}</p>
+                            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-1 z-10 relative">Hoàn Thành!</h2>
+                            <p class="text-slate-500 mb-6 font-medium z-10 relative">${rankMsg}</p>
                             
-                            <div class="flex justify-center mb-8">
-                                <div class="w-40 h-40 rounded-full border-8 border-sky-100 flex items-center justify-center relative">
+                            <div class="flex justify-center mb-6 relative z-10">
+                                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-8 border-sky-100 flex items-center justify-center relative bg-white/50 backdrop-blur-sm">
                                     <svg class="absolute top-0 left-0 w-full h-full transform -rotate-90">
-                                        <circle cx="72" cy="72" r="68" fill="none" stroke="currentColor" stroke-width="8" class="text-sky-500" stroke-dasharray="427" stroke-dashoffset="${427 - (427 * percentage / 100)}" stroke-linecap="round"></circle>
+                                        <!-- Circumference approx 360 cho r=56, 427 cho r=68. Tinh chinh lai theo size -->
+                                        <circle cx="50%" cy="50%" r="44%" fill="none" stroke="currentColor" stroke-width="8" class="text-sky-500" stroke-dasharray="280" stroke-dashoffset="${280 - (280 * percentage / 100)}" stroke-linecap="round"></circle>
                                     </svg>
                                     <div class="text-center">
-                                        <span class="text-4xl font-bold text-sky-600">${practiceState.score}</span>
-                                        <span class="text-sm block text-slate-500">/ ${practiceState.list.length}</span>
+                                        <span class="text-3xl md:text-4xl font-bold text-sky-600">${practiceState.score}</span>
+                                        <span class="text-xs md:text-sm block text-slate-500">/ ${practiceState.list.length}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <button onclick="practiceState.status = 'idle'; renderPractice();" class="glass-btn w-full bg-white font-bold py-3 rounded-xl shadow-sm text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-2">
+                            <div class="bg-white/50 rounded-xl p-3 mb-6 border border-white/80 inline-flex items-center gap-2 relative z-10 shadow-sm text-sm font-medium text-slate-700">
+                                <i class="fa-regular fa-clock text-sky-500"></i> Thời gian làm: ${formatTime(practiceState.timeElapsed)}
+                            </div>
+
+                            <button onclick="practiceState.status = 'idle'; renderPractice();" class="glass-btn w-full bg-white font-bold py-3 md:py-3.5 rounded-xl shadow-sm text-slate-700 hover:bg-slate-50 flex items-center justify-center gap-2 relative z-10 text-sm md:text-base">
                                 <i class="fa-solid fa-rotate-right"></i> Ôn tập lại
                             </button>
                         </div>
@@ -558,34 +708,42 @@
         }
 
         function startPractice() {
-            if(questions.length === 0) return alert("Chưa có câu hỏi nào. Hãy sang tab Thiết Lập để thêm!");
+            // Lấy danh sách category được tick
+            const selectedCats = Array.from(document.querySelectorAll('.cat-filter:checked')).map(cb => cb.value);
             
-            let listCopy = JSON.parse(JSON.stringify(questions)); // Deep copy
-            
-            // Tách các loại câu hỏi
-            let mcqList = listCopy.filter(q => q.type === 'mcq');
-            let tfList = listCopy.filter(q => q.type === 'tf');
-            let shortList = listCopy.filter(q => q.type === 'short');
+            if (selectedCats.length === 0) {
+                return alert("Vui lòng chọn ít nhất một chủ đề để ôn tập!");
+            }
 
-            // Xáo trộn riêng từng mảng
+            // Lọc câu hỏi theo category
+            let filteredList = questions.filter(q => selectedCats.includes(q.category));
+
+            if (filteredList.length === 0) {
+                return alert("Không có câu hỏi nào thuộc các chủ đề bạn đã chọn. Hãy thêm ở phần Thiết Lập.");
+            }
+
+            // Xáo trộn & gom nhóm (ABCD -> Đúng/Sai -> Math/Writing/Translation)
+            let mcqList = filteredList.filter(q => q.type === 'mcq');
+            let tfList = filteredList.filter(q => q.type === 'tf');
+            let shortList = filteredList.filter(q => q.type === 'short');
+
             shuffleArray(mcqList);
             shuffleArray(tfList);
             shuffleArray(shortList);
 
-            // Đảo ngẫu nhiên các phương án trong mỗi câu MCQ
             mcqList.forEach(q => {
                 let correctText = q.options[q.correct];
                 shuffleArray(q.options);
                 q.correct = q.options.indexOf(correctText);
             });
 
-            // Sắp xếp thứ tự: ABCD -> Đúng/Sai -> Trả lời ngắn
             practiceState.list = [...mcqList, ...tfList, ...shortList];
-
             practiceState.currentIndex = 0;
             practiceState.score = 0;
             practiceState.status = 'playing';
+            
             renderPractice();
+            startTimer();
         }
 
         // Logic xử lý khi chọn/gửi đáp án
@@ -614,7 +772,6 @@
             const feedbackArea = document.getElementById('feedback-area');
             let isCorrect = false;
 
-            // Đánh giá
             if (q.type === 'mcq' || q.type === 'tf') {
                 isCorrect = (userAns === q.correct);
             } else if (q.type === 'short') {
@@ -623,9 +780,8 @@
 
             if (isCorrect) practiceState.score++;
 
-            // Hiệu ứng nút (chỉ sáng viền, không đổi màu nền)
             if (btnElement && btnElement.tagName === 'BUTTON') {
-                btnElement.classList.remove('hover:bg-sky-50', 'hover:bg-green-50', 'hover:bg-red-50', 'hover:border-green-300', 'hover:border-red-300');
+                btnElement.classList.remove('hover:bg-sky-50', 'hover:bg-green-50', 'hover:bg-red-50');
                 if (isCorrect) {
                     btnElement.classList.add('glow-correct');
                     card.classList.add('correct-anim');
@@ -635,43 +791,42 @@
                 }
             }
 
-            // Hiển thị Feedback
             feedbackArea.classList.remove('hidden');
             let feedbackHtml = `
-                <div class="p-4 rounded-xl mt-4 ${isCorrect ? 'bg-green-100 text-green-800 border border-green-200' : 'bg-red-100 text-red-800 border border-red-200'}">
-                    <p class="font-bold flex items-center gap-2 mb-1">
-                        <i class="fa-solid ${isCorrect ? 'fa-circle-check text-green-600' : 'fa-circle-xmark text-red-600'} text-xl"></i>
+                <div class="p-3 md:p-4 rounded-xl mt-4 ${isCorrect ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'} animate-[fadeIn_0.3s_ease-out]">
+                    <p class="font-bold flex items-center gap-2 mb-1 text-sm md:text-base">
+                        <i class="fa-solid ${isCorrect ? 'fa-circle-check text-green-600' : 'fa-circle-xmark text-red-600'} text-lg md:text-xl"></i>
                         ${isCorrect ? 'Tuyệt vời! Chính xác.' : 'Chưa chính xác!'}
                     </p>
             `;
 
-            // Giải thích thêm nếu sai hoặc là câu hỏi ngắn
             if (!isCorrect && (q.type === 'mcq' || q.type === 'tf')) {
                 let displayAns = q.type === 'mcq' ? q.options[q.correct] : (q.correct ? 'Đúng (True)' : 'Sai (False)');
-                feedbackHtml += `<p class="text-sm mt-2"><span class="font-semibold">Đáp án đúng:</span> ${displayAns}</p>`;
+                feedbackHtml += `<p class="text-xs md:text-sm mt-2"><span class="font-semibold">Đáp án đúng:</span> ${displayAns}</p>`;
             } else if (q.type === 'short') {
-                feedbackHtml += `<p class="text-sm mt-2 bg-white/50 p-2 rounded"><span class="font-semibold text-slate-700">Đáp án chuẩn (Dùng để đối chiếu):</span><br> ${q.correct}</p>`;
-                feedbackHtml += `<p class="text-xs text-slate-500 mt-1 italic">* Thuật toán chấm điểm: Khớp ${isCorrect ? 'từ 50%' : 'dưới 50%'} số từ khóa.</p>`;
+                feedbackHtml += `<div class="mt-2 bg-white/60 p-2 md:p-3 rounded-lg border border-white max-h-32 overflow-y-auto">
+                    <span class="font-semibold text-slate-700 text-xs md:text-sm block mb-1">Đáp án mẫu:</span>
+                    <p class="text-xs md:text-sm text-slate-600">${q.correct}</p>
+                </div>`;
+                feedbackHtml += `<p class="text-[10px] md:text-xs text-slate-500 mt-1.5 italic">* Thuật toán: Khớp ${isCorrect ? 'từ 50%' : 'dưới 50%'} từ khóa so với mẫu.</p>`;
             }
 
             feedbackHtml += `
-                    <button onclick="nextQuestion()" class="mt-4 px-6 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-semibold w-full transition">
-                        Tiếp tục <i class="fa-solid fa-arrow-right ml-1"></i>
+                    <button onclick="nextQuestion()" class="mt-3 md:mt-4 px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-semibold w-full transition text-sm md:text-base flex items-center justify-center gap-2">
+                        Tiếp tục <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
             `;
             feedbackArea.innerHTML = feedbackHtml;
 
-            // Khóa các input/button khác
             const allBtns = card.querySelectorAll('button:not(#feedback-area button)');
             allBtns.forEach(b => b.disabled = true);
             const textarea = card.querySelector('textarea');
             if(textarea) textarea.disabled = true;
 
-            // Xóa animation classes sau khi chạy xong để có thể chạy lại
             setTimeout(() => {
                 card.classList.remove('correct-anim', 'wrong-anim');
-            }, 500);
+            }, 400);
         }
 
         function nextQuestion() {
@@ -679,6 +834,7 @@
             practiceState.currentIndex++;
             if (practiceState.currentIndex >= practiceState.list.length) {
                 practiceState.status = 'result';
+                stopTimer();
             }
             renderPractice();
         }
@@ -686,6 +842,99 @@
         // --- INIT ---
         renderPractice();
 
+    </script>
+     <!-- BẠN COPY PHẦN HTML NÀY ĐẶT VÀO TRONG THẺ <body> CỦA FILE GỐC (Ưu tiên để dưới cùng, trước thẻ đóng </body>) -->
+    
+    <!-- Welcome Popup Overlay -->
+    <div id="welcome-popup" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 p-4">
+        
+        <!-- Welcome Popup Modal -->
+        <div id="welcome-modal" class="glass w-full max-w-md bg-white/70 p-6 md:p-8 rounded-[2rem] shadow-2xl transform scale-95 transition-transform duration-300 relative">
+            
+            <!-- Icon Header -->
+            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2">
+                <div class="w-20 h-20 bg-gradient-to-br from-sky-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg border-4 border-white">
+                    <i class="fa-solid fa-book-open-reader text-3xl text-white"></i>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="mt-8 text-center">
+                <h2 class="text-2xl font-bold text-slate-800 mb-2">Chào mừng bạn! 👋</h2>
+                <p class="text-slate-600 text-sm mb-6">Website hỗ trợ bạn ôn tập Anh Văn Chuyên Môn.</p>
+                
+                <div class="space-y-4 text-left">
+                    <!-- Hướng dẫn Ôn tập -->
+                    <div class="bg-white/50 p-4 rounded-xl border border-white">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 text-sky-500"><i class="fa-solid fa-gamepad text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-slate-800">Cách Ôn Tập</h3>
+                                <p class="text-sm text-slate-600">Chọn các chủ đề bạn muốn học (Trắc nghiệm, Đúng/Sai, Writing...) và nhấn bắt đầu. Hệ thống sẽ trộn câu hỏi và tính giờ tự động.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hướng dẫn Thiết lập -->
+                    <div class="bg-white/50 p-4 rounded-xl border border-white">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 text-emerald-500"><i class="fa-solid fa-database text-xl"></i></div>
+                            <div>
+                                <h3 class="font-bold text-slate-800">Thiết Lập Dữ Liệu</h3>
+                                <p class="text-sm text-slate-600">Chuyển sang tab <b>Thiết Lập</b> để thêm mới, sửa hoặc xóa câu hỏi. Dữ liệu của bạn được lưu ngay trên trình duyệt.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nút Đóng -->
+                <button onclick="closeWelcomePopup()" class="mt-8 w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3.5 rounded-xl shadow-md transition-all transform hover:scale-[1.02] active:scale-95">
+                    Đã Hiểu & Bắt Đầu
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BẠN COPY PHẦN JAVASCRIPT NÀY VÀO THẺ <script> CỦA FILE GỐC -->
+    <script>
+        // Hàm hiển thị Popup
+        function showWelcomePopup() {
+            const popup = document.getElementById('welcome-popup');
+            const modal = document.getElementById('welcome-modal');
+            if (popup && modal) {
+                popup.classList.remove('opacity-0', 'pointer-events-none');
+                modal.classList.remove('scale-95');
+                modal.classList.add('scale-100');
+            }
+        }
+
+        // Hàm đóng Popup và lưu trạng thái để không hiện lại
+        function closeWelcomePopup() {
+            const popup = document.getElementById('welcome-popup');
+            const modal = document.getElementById('welcome-modal');
+            if (popup && modal) {
+                popup.classList.add('opacity-0', 'pointer-events-none');
+                modal.classList.remove('scale-100');
+                modal.classList.add('scale-95');
+                
+                // Lưu vào LocalStorage để đánh dấu là đã xem
+                localStorage.setItem('hasSeenTutorialV1', 'true');
+            }
+        }
+
+        // Tự động kiểm tra và hiển thị khi trang vừa tải xong
+        window.addEventListener('DOMContentLoaded', () => {
+            // Kiểm tra xem người dùng đã từng đóng popup này chưa
+            const hasSeen = localStorage.getItem('hasSeenTutorialV1');
+            
+            if (!hasSeen) {
+                // Thêm độ trễ nhỏ (500ms) để hiện ra mượt mà hơn sau khi trang đã load
+                setTimeout(showWelcomePopup, 500);
+            }
+            
+            // MẸO DEV: Nếu bạn muốn test lại popup nhiều lần, hãy bỏ comment dòng dưới đây:
+            // localStorage.removeItem('hasSeenTutorialV1'); 
+        });
     </script>
 </body>
 </html>
