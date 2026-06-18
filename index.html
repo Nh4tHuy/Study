@@ -129,7 +129,7 @@
 
         <!-- Footer Bản Quyền -->
         <footer class="mt-6 pt-4 border-t border-white/30 text-center text-sm text-sky-800/70 font-medium">
-            &copy; 2026 Bản quyền thuộc về Nh4tHuy.
+            &copy; 2026 Bản quyền thuộc về Nh4tHuy
         </footer>
 
     </div>
@@ -149,7 +149,7 @@
             { id: 8, type: 'mcq', question: 'The function fg is called the _____ of f and g.', options: ['composition', 'multiplication', 'addition', 'division'], correct: 0 },
             { id: 9, type: 'mcq', question: 'A function whose _____ consists of a single number is called a constant function.', options: ['range', 'domain', 'limit', 'variable'], correct: 0 },
             { id: 10, type: 'mcq', question: 'Cubic functions are _____ of degree 3.', options: ['polynomials', 'rational', 'transcendental', 'logarithmic'], correct: 0 },
-            { id: 11, type: 'mcq', question: 'f(x) = √(x^2-4) is an _____ function.', options: ['algebraic', 'transcendental', 'exponential', 'even'], correct: 0 },
+            { id: 11, type: 'mcq', question: 'f(x) = √(x^2–4) is an _____ function.', options: ['algebraic', 'transcendental', 'exponential', 'even'], correct: 0 },
             { id: 12, type: 'mcq', question: 'The graph of the _____ function f(x) = c is the _____ line y = c.', options: ['constant / horizontal', 'linear / vertical', 'cubic / curved', 'variable / straight'], correct: 0 },
             { id: 13, type: 'mcq', question: 'The limit of a _____ times a function is the constant times the _____ of the function.', options: ['constant / limit', 'variable / domain', 'number / range', 'value / derivative'], correct: 0 },
             { id: 14, type: 'mcq', question: 'The _____ of the _____ of two functions is the sum of their limits.', options: ['limit / sum', 'sum / limit', 'derivative / product', 'integral / difference'], correct: 0 },
@@ -169,16 +169,38 @@
             { id: 26, type: 'tf', question: 'A function can have two or more different limits at the same point.', correct: false },
             { id: 27, type: 'tf', question: 'The limit of f(x) as x approaches a may not be equal to f(a).', correct: true },
 
-            // Dạng câu trả lời ngắn
-            { id: 28, type: 'short', question: 'If f(x) = sqrt(x) and g(x) = sqrt(4-x^2) , find the functions f + g, f - g, f . g, and f / g ?', correct: 'Solution  The domain of f(x) is [0, + ). The domain of g(x) is the interval [-2, 2]. The intersection of the domains of f and g  is [0, 2]. Thus, according to the definitions, we have' }
+            // Dạng câu trả lời ngắn (Bổ sung từ GIẢI BÀI TẬP, WRITING, TRANSLATION)
+            { id: 28, type: 'short', question: 'Problem: If f(x) = √x and g(x) = √(4 - x^2), find the functions f + g, f - g, f . g, and f / g ?', correct: 'Solution The domain of f(x) is [0, + ). The domain of g(x) is the interval [-2, 2]. The intersection of the domains of f and g is [0, 2]. Thus, according to the definitions, we have' },
+            { id: 29, type: 'short', question: 'Problem: If f(x) = x^2 and g(x) = √(x - 3), find the composite functions (fg)(x) and (gf)(x).', correct: 'As x approaches 3 from the left, the formula for f is f(x) = x2 - 5 so that, As x approaches 3 from the right, the formula for f is f(x) = √(x - 3) so that, Because the one-sided limits are equal, we have' },
+            { id: 30, type: 'short', question: 'Problem: Làm biếng gõ, Tự thêm vô ở phần thiết lập đi', correct: 'Đang có cái nịt, tiếp câu mới đi' },
+            
+            
+          { id: 31, type: 'short', question: 'Writing: Write a solution to the following problem. Find the domain of the function   f(x) = 1/(x-1)(x-3). Share the solution with one of your classmates.', correct: 'Solution. Since division by 0 is not allowed, f(x) is not defined when x = 1 or x = 3. Thus the domain of f is the set {x | x <>1, x<>3}.' },
+          { id: 32, type: 'short', question: 'Writing: Write one problem that asks to find the sum of two functions and then solve the problem.', correct: 'Problem: Given the two functions f(x) =2x^2+1and g(x)=x+2. Find the function (f+g)(x). Solution: The domain of f(x) and g(x) is R. The sum of two functions is defined as:  (f+g)(x) = f(x) +g(x). Thus, according to the above definition, we have (f+g)(x)=2x^2+x+3 for all x in R.' },
+            { id: 33, type: 'short', question: 'Writing: List at least six words that you would like to remember from the lesson. Write one sentence using one of these words.', correct: 'a) f(x) is a polynomial of degree 4. b) g(x) is an algebraic function, specifically a square root function. c) h(x) is a rational function, which is a ratio of two polynomials. d) F(x) is a constant function, and it is also a polynomial of degree zero. e) G(x) is an exponential function with base e. f) S(x) is a polynomial of degree 7.' },
+           { id: 34, type: 'short', question: 'Writing: Write 2 sentences of your own using both words "because" and "limit". Read these sentences aloud to the class.', correct: ' We cannot compute the limit lim_{x->0} 1/x because f(x) = 1/x is not defined at a=0. We cannot compute the limit lim_{x->0} 1/x by direct substitution because f(x) = 1/x is not defined at a=0.' },
+           { id: 35, type: 'short', question: 'Writing: Write your opinion about the following statement: Not all limits can be evaluated by direct substitution.', correct: ' I agree with this statement, because the direct substitution method is only applicable when the function is continuous and lies within its domain at the point where the limit needs to be calculated.' },           
+            { id: 36, type: 'short', question: 'Dịch sang T. Anh: "Chứng minh rằng tổng của hai hàm số chẵn là một hàm số chẵn và tổng của hai hàm số lẻ là một hàm số lẻ. Chúng ta có thể nói gì về tổng của một hàm chẵn và một hàm lẻ?"', correct: 'Prove that the sum of two even functions is an even function and the sum of two odd functions is an odd function. What can we say about the sum of an even function and an odd function?' },
+            { id: 37, type: 'short', question: 'Dịch sang T. Anh: "Vẽ đồ thị của hàm số f(x) = x^3"', correct: 'Draw the graph of the function f(x) = x^3.' },
+            { id: 38, type: 'short', question: 'Dịch sang T. Anh: "Hãy xác định f là hàm số chẵn, lẻ hay không chẵn, không lẻ. Nếu f là chẵn hoặc lẻ, dùng tính đối xứng để vẽ đồ thị của f."', correct: 'Determine whether f is an even function, an odd function, or neither even nor odd. If f is even or odd, using the symmetry to draw the graph of f.' },
+            { id: 39, type: 'short', question: 'Dịch sang T. Anh: "Các hàm số có thể được cộng, trừ, nhân và chia để tạo nên các hàm số mới."', correct: 'Functions can be added, subtracted, multiplied, and divided to create new functions.' },
+            { id: 40, type: 'short', question: 'Dịch sang T. Anh: "Nhân một hàm số với một hằng số là trường hợp đặc biệt của nhân hai hàm số."', correct: 'Multiplying a function with by a constant is a special case of multiplying two functions.' },
+            { id: 41, type: 'short', question: 'Dịch sang T. Anh: "Hãy biểu diễn hàm số h(x) = (x-4)^5 như một hàm số hợp của hai hàm số."', correct: 'Represent the function h(x) = (x-4)^5 as a composite function of two functions.' },
+            { id: 42, type: 'short', question: 'Dịch sang T. Anh: "Miền xác định của cả hai hàm số sinx và cosx là (- vô cùng, vô cùng) và miền giá trị của chúng là khoảng đóng [-1, 1]."', correct: 'The domain of both functions sin(x) and cos(x) is the set from negative infinity to infinity. And their range is the closed interval from negative one to one.' },
+            { id: 43, type: 'short', question: 'Dịch sang T. Anh: "Một tính chất quan trọng của các hàm số sinx và cosx là các hàm số này là các hàm tuần hoàn và có chu kỳ là 2pi."', correct: 'An important character of the functions sin(x) and cos(x) is these functions are periodic functions with period of 2pi.' },
+            { id: 44, type: 'short', question: 'Dịch sang T. Anh: "Mọi phương trình đa thức f(x) = 0 đều có ít nhất một nghiệm."', correct: 'Every multi-method f(x) = 0 has at least one test.' },
+            { id: 45, type: 'short', question: 'Dịch sang T. Anh: "Giới hạn của một hàm số (nếu tồn tại) là duy nhất."', correct: 'The limit of a function (if it exists) is unique.' },
+            { id: 46, type: 'short', question: 'Dịch sang T. Anh: "Dùng các định lý về giới hạn, tính các giới hạn sau:"', correct: 'Using theorems on limits, calculate the following limits:' },
+            { id: 47, type: 'short', question: 'Dịch sang T. Anh: "Chứng minh rằng hàm số y = sin(1/x) không có giới hạn khi x dần về 0."', correct: 'Prove that the function y = sin(1/x) does not have any limit as x approaches 0.' }
         ];
 
+
         // --- STATE MANAGEMENT ---
-        let localData = JSON.parse(localStorage.getItem('quizData'));
+        let localData = JSON.parse(localStorage.getItem('quizDataV3'));
         // Bổ sung các câu hỏi mới nếu người dùng đang dùng data cũ bị thiếu
         if (!localData || localData.length < initialData.length) {
             localData = [...initialData];
-            localStorage.setItem('quizData', JSON.stringify(localData));
+            localStorage.setItem('quizDataV3', JSON.stringify(localData));
         }
         let questions = localData;
         let currentTab = 'practice'; 
@@ -193,7 +215,7 @@
 
         // --- CORE FUNCTIONS ---
         function saveData() {
-            localStorage.setItem('quizDataV2', JSON.stringify(questions));
+            localStorage.setItem('quizDataV3', JSON.stringify(questions));
         }
 
         function switchTab(tab) {
@@ -425,7 +447,7 @@
                         <div class="glass p-10 rounded-3xl max-w-lg w-full bg-white/40">
                             <div class="text-sky-500 mb-6"><i class="fa-solid fa-rocket text-6xl"></i></div>
                             <h2 class="text-3xl font-bold text-slate-800 mb-4">Sẵn sàng ôn tập?</h2>
-                            <p class="text-slate-600 mb-8">Web App ôn tập <span class="font-bold">Trắc nghiệm &rarr; Đúng / Sai &rarr; Trả lời ngắn</span>.</p>
+                            <p class="text-slate-600 mb-8">Trình tự ôn tập: <span class="font-bold">Trắc nghiệm ABCD &rarr; Đúng / Sai &rarr; Trả lời ngắn</span>.</p>
                             <button onclick="startPractice()" class="w-full bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-500 hover:to-blue-600 text-white font-bold py-4 rounded-xl shadow-xl shadow-blue-500/30 text-lg transition-transform transform hover:scale-105">
                                 Bắt Đầu Ngay
                             </button>
@@ -628,7 +650,7 @@
                 let displayAns = q.type === 'mcq' ? q.options[q.correct] : (q.correct ? 'Đúng (True)' : 'Sai (False)');
                 feedbackHtml += `<p class="text-sm mt-2"><span class="font-semibold">Đáp án đúng:</span> ${displayAns}</p>`;
             } else if (q.type === 'short') {
-                feedbackHtml += `<p class="text-sm mt-2 bg-white/50 p-2 rounded"><span class="font-semibold text-slate-700">Đáp án chuẩn:</span><br> ${q.correct}</p>`;
+                feedbackHtml += `<p class="text-sm mt-2 bg-white/50 p-2 rounded"><span class="font-semibold text-slate-700">Đáp án chuẩn (Dùng để đối chiếu):</span><br> ${q.correct}</p>`;
                 feedbackHtml += `<p class="text-xs text-slate-500 mt-1 italic">* Thuật toán chấm điểm: Khớp ${isCorrect ? 'từ 50%' : 'dưới 50%'} số từ khóa.</p>`;
             }
 
