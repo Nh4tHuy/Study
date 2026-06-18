@@ -346,7 +346,7 @@
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-semibold mb-1 text-slate-600">Chủ đề (Loại câu hỏi)</label>
+                            <label class="block text-sm font-semibold mb-1 text-slate-600">Chủ đề</label>
                             <select id="q-category" onchange="renderSetupFormFields()" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base">
                                 <option value="abcd">Trắc nghiệm</option>
                                 <option value="tf">Đúng / Sai</option>
@@ -412,17 +412,17 @@
                     <div class="flex gap-4">
                         <label class="flex items-center gap-2 cursor-pointer p-2 glass rounded-lg flex-1 justify-center hover:bg-white/60">
                             <input type="radio" name="tf-correct" value="true" ${isTrue ? 'checked' : ''} class="w-4 h-4 sm:w-5 sm:h-5 custom-checkbox rounded-full"> 
-                            <span class="font-bold text-green-600 text-sm sm:text-base">Đúng (True)</span>
+                            <span class="font-bold text-green-600 text-sm sm:text-base">True</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer p-2 glass rounded-lg flex-1 justify-center hover:bg-white/60">
                             <input type="radio" name="tf-correct" value="false" ${!isTrue ? 'checked' : ''} class="w-4 h-4 sm:w-5 sm:h-5 custom-checkbox rounded-full"> 
-                            <span class="font-bold text-red-600 text-sm sm:text-base">Sai (False)</span>
+                            <span class="font-bold text-red-600 text-sm sm:text-base">False</span>
                         </label>
                     </div>
                 `;
             } else { // short answer types
                 html = `
-                    <label class="block text-sm font-semibold mb-1 text-slate-600">Đoạn đáp án đúng (Hệ thống duyệt khớp >=50% từ khóa)</label>
+                    <label class="block text-sm font-semibold mb-1 text-slate-600">Đoạn đáp án đúng (Duyệt khớp >=50% từ khóa)</label>
                     <textarea id="short-ans" rows="3" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base" placeholder="Nhập đáp án chuẩn...">${qData ? qData.correct : ''}</textarea>
                 `;
             }
