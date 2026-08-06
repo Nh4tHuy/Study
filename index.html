@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Ôn Tập</title>
+    <title>Web Ôn Tập Cuối Kỳ AVCM</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- KaTeX for rendering Math formulas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -41,8 +51,8 @@
         }
 
         .glass-btn.active {
-            background: ##ffffff; 
-            color: #000000;
+            background: #ffffff; 
+            color: #0284c7;
             border-color: #0284c7;
         }
 
@@ -144,7 +154,7 @@
         <header class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4 border-b border-white/50 pb-4">
             <div class="flex items-center gap-3 text-sky-800">
                 <i class="fa-solid fa-graduation-cap text-2xl sm:text-3xl"></i>
-                <h1 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Ôn Tập AVCM</h1>
+                <h1 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">Ôn Tập Cuối Kỳ AVCM</h1>
             </div>
             <div class="flex bg-white/30 p-1 rounded-xl glass w-full sm:w-auto">
                 <button onclick="switchTab('practice')" id="tab-practice" class="glass-btn active flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg font-medium flex justify-center items-center gap-2 text-sm sm:text-base">
@@ -163,86 +173,83 @@
 
         <!-- Footer -->
         <footer class="mt-4 pt-3 border-t border-white/30 text-center text-xs sm:text-sm text-sky-800/70 font-medium">
-            &copy; 2026 Bản quyền thuộc về Nh4tHuy - Vesion 2.0
+            &copy; 2026 Huy Lỏ Code Web
         </footer>
 
     </div>
 
+
     <script>
         // --- DATA INITIALIZATION ---
-        // Cập nhật cấu trúc: Thêm trường 'category' để phân loại
         const initialData = [
-            // Dạng ABCD (Trắc nghiệm)
-            { id: 1, category: 'abcd', type: 'mcq', question: 'A function is a _____ which establishes a _____ between two sets.', options: ['rule / relation', 'set / connection', 'variable / domain', 'formula / range'], correct: 0 },
-            { id: 2, category: 'abcd', type: 'mcq', question: 'If f is a function defined by the equation y = f(x), then x is called the _____ variable and y is the _____ variable.', options: ['dependent / independent', 'independent / dependent', 'constant / varying', 'input / limit'], correct: 1 },
-            { id: 3, category: 'abcd', type: 'mcq', question: 'The set of all possible values of f(x) as x _____ throughout the domain is called the _____ of the function f.', options: ['varies / range', 'stops / domain', 'limits / set', 'increases / graph'], correct: 0 },
-            { id: 4, category: 'abcd', type: 'mcq', question: 'The _____ of a function defined by y = f(x) is a pictorial _____ of the function.', options: ['graph / representation', 'diagram / illustration', 'chart / view', 'range / domain'], correct: 0 },
-            { id: 5, category: 'abcd', type: 'mcq', question: 'An _____ function f is one for which f(-x) = f(x) for every x in the _____ of f.', options: ['odd / range', 'even / domain', 'inverse / set', 'algebraic / limit'], correct: 1 },
-            { id: 6, category: 'abcd', type: 'mcq', question: 'Functions can be _____ in a variety of ways to make new functions.', options: ['combined', 'separated', 'reduced', 'multiplied'], correct: 0 },
-            { id: 7, category: 'abcd', type: 'mcq', question: 'The domain of the function f.g is the _____ of the domains of f and g.', options: ['intersection', 'union', 'sum', 'difference'], correct: 0 },
-            { id: 8, category: 'abcd', type: 'mcq', question: 'The function fg is called the _____ of f and g.', options: ['composition', 'multiplication', 'addition', 'division'], correct: 0 },
-            { id: 9, category: 'abcd', type: 'mcq', question: 'A function whose _____ consists of a single number is called a constant function.', options: ['range', 'domain', 'limit', 'variable'], correct: 0 },
-            { id: 10, category: 'abcd', type: 'mcq', question: 'Cubic functions are _____ of degree 3.', options: ['polynomials', 'rational', 'transcendental', 'logarithmic'], correct: 0 },
-            { id: 11, category: 'abcd', type: 'mcq', question: 'f(x) = √(x^2–4) is _____ _____ function.', options: ['an / algebraic', 'a / transcendental', 'an / exponential', 'a / even'], correct: 0 },
-            { id: 12, category: 'abcd', type: 'mcq', question: 'The graph of the _____ function f(x) = c is the _____ line y = c.', options: ['constant / horizontal', 'linear / vertical', 'cubic / curved', 'variable / straight'], correct: 0 },
-            { id: 13, category: 'abcd', type: 'mcq', question: 'The limit of a _____ times a function is the constant times the _____ of the function.', options: ['constant / limit', 'variable / domain', 'number / range', 'value / derivative'], correct: 0 },
-            { id: 14, category: 'abcd', type: 'mcq', question: 'The _____ of the _____ of two functions is the sum of their limits.', options: ['limit / sum', 'sum / limit', 'derivative / product', 'integral / difference'], correct: 0 },
-            { id: 15, category: 'abcd', type: 'mcq', question: 'The limit of a quotient of two functions is the _____ of their limits, provided the _____ does not _____ _____ zero.', options: ['sum / numerator / equal / to', 'product / variable / approach / to', 'quotient / denominator / tend / to', 'difference / function / drop / to'], correct: 2 },
-            
-            // Dạng Đúng/Sai (True/False)
-            { id: 16, category: 'tf', type: 'tf', question: 'In general, the composite functions fg and gf are different.', correct: true },
-            { id: 17, category: 'tf', type: 'tf', question: 'The domain of the function f(x) = | x | is the set of nonnegative numbers.', correct: false },
-            { id: 18, category: 'tf', type: 'tf', question: 'A function needs not be given by a single formula.', correct: true },
-            { id: 19, category: 'tf', type: 'tf', question: 'A polynomial in x is a function that is expressible as a sum of finitely many terms of the form cx^n, where c is a constant and n is a nonnegative integer.', correct: true },
-            { id: 20, category: 'tf', type: 'tf', question: 'A constant is a polynomial.', correct: true },
-            { id: 21, category: 'tf', type: 'tf', question: 'A quintic function is a polynomial of degree 5.', correct: true },
-            { id: 22, category: 'tf', type: 'tf', question: 'Rational functions are algebraic functions.', correct: true },
-            { id: 23, category: 'tf', type: 'tf', question: 'Logarithmic functions aren\'t transcendental functions.', correct: false },
-            { id: 24, category: 'tf', type: 'tf', question: 'In finding the limit of f(x) as x approaches a, we never consider x = a.', correct: false },
-            { id: 25, category: 'tf', type: 'tf', question: 'The symbol ∞ is a number.', correct: false },
-            { id: 26, category: 'tf', type: 'tf', question: 'A function can have two or more different limits at the same point.', correct: false },
-            { id: 27, category: 'tf', type: 'tf', question: 'The limit of f(x) as x approaches a may not be equal to f(a).', correct: true },
+            // TRUE OR FALSE
+            { id: 1, category: 'tf', type: 'tf', question: 'The domain of f\' may be smaller than the domain of f.', correct: true },
+            { id: 2, category: 'tf', type: 'tf', question: 'At any discontinuity f fails to be differentiable.', correct: true },
+            { id: 3, category: 'tf', type: 'tf', question: 'There aren\'t functions that are continuous but not differentiable.', correct: false },
+            { id: 4, category: 'tf', type: 'tf', question: 'An indefinite integral $\\int f(x)dx$ is a number.', correct: false },
+            { id: 5, category: 'tf', type: 'tf', question: 'All the anti-derivatives of f differ only by a constant.', correct: true },
+            { id: 6, category: 'tf', type: 'tf', question: 'A function can have at most one absolute maximum or minimum value.', correct: true },
+            { id: 7, category: 'tf', type: 'tf', question: 'A discontinuous function might have maximum and minimum values.', correct: true },
+            { id: 8, category: 'tf', type: 'tf', question: 'Some functions have extreme values, while others do not.', correct: true },
+            { id: 9, category: 'tf', type: 'tf', question: 'To find the extreme values of the function f, we need only check the values of f at its critical points.', correct: false },
 
-            // Giải Toán (Math)
-            { id: 28, category: 'math', type: 'short', question: 'Example: If f(x) = √x and g(x) = √(4 - x^2), find the functions f + g, f - g, f . g, and f / g ?', correct: 'Solution The domain of f(x) is [0, + ). The domain of g(x) is the interval [-2, 2]. The intersection of the domains of f and g is [0, 2]. Thus, according to the definitions, we have' },
-            { id: 29, category: 'math', type: 'short', question: 'Example: If f(x) = x^2 and g(x) = √(x - 3), find the composite functions (fg)(x) and (gf)(x).', correct: 'As x approaches 3 from the left, the formula for f is f(x) = x2 - 5 so that, As x approaches 3 from the right, the formula for f is f(x) = √(x - 3) so that, Because the one-sided limits are equal, we have' },
-            
-            // Writing
-            { id: 31, category: 'writing', type: 'short', question: 'Writing: Write a solution to the following problem. Find the domain of the function   f(x) = 1/(x-1)(x-3). Share the solution with one of your classmates.', correct: 'Solution. Since division by 0 is not allowed, f(x) is not defined when x = 1 or x = 3. Thus the domain of f is the set {x | x <>1, x<>3}.' },
-            { id: 32, category: 'writing', type: 'short', question: 'Writing: Write one problem that asks to find the sum of two functions and then solve the problem.', correct: 'Problem: Given the two functions f(x) =2x^2+1and g(x)=x+2. Find the function (f+g)(x). Solution: The domain of f(x) and g(x) is R. The sum of two functions is defined as:  (f+g)(x) = f(x) +g(x). Thus, according to the above definition, we have (f+g)(x)=2x^2+x+3 for all x in R.' },
-            { id: 33, category: 'writing', type: 'short', question: 'Writing: List at least six words that you would like to remember from the lesson. Write one sentence using one of these words.', correct: 'a) f(x) is a polynomial of degree 4. b) g(x) is an algebraic function, specifically a square root function. c) h(x) is a rational function, which is a ratio of two polynomials. d) F(x) is a constant function, and it is also a polynomial of degree zero. e) G(x) is an exponential function with base e. f) S(x) is a polynomial of degree 7.' },
-            { id: 34, category: 'writing', type: 'short', question: 'Writing: Write 2 sentences of your own using both words "because" and "limit". Read these sentences aloud to the class.', correct: ' We cannot compute the limit lim_{x->0} 1/x because f(x) = 1/x is not defined at a=0. We cannot compute the limit lim_{x->0} 1/x by direct substitution because f(x) = 1/x is not defined at a=0.' },
-            { id: 35, category: 'writing', type: 'short', question: 'Writing: Write your opinion about the following statement: Not all limits can be evaluated by direct substitution.', correct: ' I agree with this statement, because the direct substitution method is only applicable when the function is continuous and lies within its domain at the point where the limit needs to be calculated.' },           
-            
-            // Translation
-            { id: 36, category: 'translation', type: 'short', question: 'Translation: "Chứng minh rằng tổng của hai hàm số chẵn là một hàm số chẵn và tổng của hai hàm số lẻ là một hàm số lẻ. Chúng ta có thể nói gì về tổng của một hàm chẵn và một hàm lẻ?"', correct: 'Prove that the sum of two even functions is an even function and the sum of two odd functions is an odd function. What can we say about the sum of an even function and an odd function?' },
-            { id: 37, category: 'translation', type: 'short', question: 'Translation: "Vẽ đồ thị của hàm số f(x) = x^3"', correct: 'Draw the graph of the function f(x) = x^3.' },
-            { id: 38, category: 'translation', type: 'short', question: 'Translation: "Hãy xác định f là hàm số chẵn, lẻ hay không chẵn, không lẻ. Nếu f là chẵn hoặc lẻ, dùng tính đối xứng để vẽ đồ thị của f."', correct: 'Determine whether f is an even function, an odd function, or neither even nor odd. If f is even or odd, using the symmetry to draw the graph of f.' },
-            { id: 39, category: 'translation', type: 'short', question: 'Translation: "Các hàm số có thể được cộng, trừ, nhân và chia để tạo nên các hàm số mới."', correct: 'Functions can be added, subtracted, multiplied, and divided to create new functions.' },
-            { id: 40, category: 'translation', type: 'short', question: 'Translation: "Nhân một hàm số với một hằng số là trường hợp đặc biệt của nhân hai hàm số."', correct: 'Multiplying a function with by a constant is a special case of multiplying two functions.' },
-            { id: 41, category: 'translation', type: 'short', question: 'Translation: "Hãy biểu diễn hàm số h(x) = (x-4)^5 như một hàm số hợp của hai hàm số."', correct: 'Represent the function h(x) = (x-4)^5 as a composite function of two functions.' },
-            { id: 42, category: 'translation', type: 'short', question: 'Translation: "Miền xác định của cả hai hàm số sinx và cosx là (- vô cùng, vô cùng) và miền giá trị của chúng là khoảng đóng [-1, 1]."', correct: 'The domain of both functions sin(x) and cos(x) is the set from negative infinity to infinity. And their range is the closed interval from negative one to one.' },
-            { id: 43, category: 'translation', type: 'short', question: 'Translation: "Một tính chất quan trọng của các hàm số sinx và cosx là các hàm số này là các hàm tuần hoàn và có chu kỳ là 2pi."', correct: 'An important character of the functions sin(x) and cos(x) is these functions are periodic functions with period of 2pi.' },
-            { id: 44, category: 'translation', type: 'short', question: 'Translation: "Mọi phương trình đa thức f(x) = 0 đều có ít nhất một nghiệm."', correct: 'Every multi-method f(x) = 0 has at least one test.' },
-            { id: 45, category: 'translation', type: 'short', question: 'Translation: "Giới hạn của một hàm số (nếu tồn tại) là duy nhất."', correct: 'The limit of a function (if it exists) is unique.' },
-            { id: 46, category: 'translation', type: 'short', question: 'Translation: "Dùng các định lý về giới hạn, tính các giới hạn sau:"', correct: 'Using theorems on limits, calculate the following limits:' },
-            { id: 47, category: 'translation', type: 'short', question: 'Translation: "Chứng minh rằng hàm số y = sin(1/x) không có giới hạn khi x dần về 0."', correct: 'Prove that the function y = sin(1/x) does not have any limit as x approaches 0.' }
+            // FILL IN THE BLANKS
+            { id: 10, category: 'fill', type: 'short', question: '___ is the process of finding a derivative.', correct: 'Differentiation' },
+            { id: 11, category: 'fill', type: 'short', question: 'The expression $dy/dx$ stands for the ___ of y with respect to x.', correct: 'derivative' },
+            { id: 12, category: 'fill', type: 'short', question: 'The ___ of a constant function is everywhere zero.', correct: 'derivative' },
+            { id: 13, category: 'fill', type: 'short', question: 'If $F\'(x)=f(x)\\forall x\\in(a,b)$, then $F(x)$ is called an ___ of $f(x)$ on the interval (a, b).', correct: 'antiderivative' },
+            { id: 14, category: 'fill', type: 'short', question: 'A function is ___ in an interval provided that the graph continuously falls as x goes from left to right through the interval.', correct: 'decreasing' },
+            { id: 15, category: 'fill', type: 'short', question: 'Points x in the domain of f where $f\'(x)=0$ are ___ points of f.', correct: 'critical' },
+            { id: 16, category: 'fill', type: 'short', question: '$(c,f(c))$ is the ___ point on the graph of a function f if f has an absolute maximum at c.', correct: 'highest' },
+            { id: 17, category: 'fill', type: 'short', question: 'If f has either a relative maximum or a relative minimum at c, then f is said to have a ___ ___ at c.', correct: 'local|extremum' },
+            { id: 18, category: 'fill', type: 'short', question: 'The ___ integral $\\int_{a}^{b}f(x)dx$ is a number.', correct: 'definite' },
+            { id: 19, category: 'fill', type: 'short', question: 'In the symbol $\\int_{a}^{b}f(x)dx$ a and b are the ___ of ___.', correct: 'limits|integration' },
+            { id: 20, category: 'fill', type: 'short', question: 'The ___ ___ of calculus connects the two key concepts of calculus - the ___ and the derivative.', correct: 'fundamental|theorem|integral' },
+            { id: 21, category: 'fill', type: 'short', question: 'We say that $f(x)$ is ___ in [a, b] if $\\int_{a}^{b}f(x)dx$ ___.', correct: 'integrable|exists' },
+
+            // TRANSLATE INTO VIETNAMESE
+            { id: 22, category: 'translation', type: 'short', question: 'The left-hand and right-hand derivatives of f at a are defined by $f_{+}^{\\prime}(a)=\\lim_{h\\rightarrow0^{+}}\\frac{f(a+h)-f(a)}{h}$ and $f_{-}^{\\prime}(a)=\\lim_{h\\rightarrow0^{-}}\\frac{f(a+h)-f(a)}{h}$ if these limits exist. Then $f^{\\prime}(a)$ exists if and only if these one-sided derivatives exist and equal.', correct: 'Đạo hàm trái và đạo hàm phải của f tại a được định nghĩa bởi $f_{+}^{\\prime}(a)=\\lim_{h\\rightarrow0^{+}}\\frac{f(a+h)-f(a)}{h}$ và $f_{-}^{\\prime}(a)=\\lim_{h\\rightarrow0^{-}}\\frac{f(a+h)-f(a)}{h}$ nếu các giới hạn này tồn tại. Khi đó $f^{\\prime}(a)$ tồn tại khi và chỉ khi các đạo hàm một phía này tồn tại và bằng nhau.' },
+            { id: 23, category: 'translation', type: 'short', question: 'Differentiate each function. a. $f(x)=\\pi r^{3}$ b. $g(t)=\\sqrt{t}-\\frac{1}{\\sqrt{t}}$', correct: 'Tính đạo hàm của mỗi hàm số sau:' },
+            { id: 24, category: 'translation', type: 'short', question: 'Determine whether or not $f^{\\prime}(0)$ exists.', correct: 'Xác định xem $f^{\\prime}(0)$ có tồn tại hay không, trong đó' },
+            { id: 25, category: 'translation', type: 'short', question: 'Find the largest possible product of two nonnegative numbers whose sum is 10.', correct: 'Tìm tích lớn nhất có thể có của hai số không âm có tổng bằng 10.' },
+            { id: 26, category: 'translation', type: 'short', question: 'Show that the endpoint $x=0$ is neither a local minimum point nor a local maximum point.', correct: 'Chứng minh rằng điểm mút $x=0$ không phải là điểm cực tiểu địa phương cũng không phải là điểm cực đại địa phương.' },
+            { id: 27, category: 'translation', type: 'short', question: 'If a function has an absolute maximum value must it have any local maximum values? If a function has a local maximum value must it have an absolute maximum value? Give reasons for your answer.', correct: 'Nếu một hàm số có giá trị lớn nhất tuyệt đối thì nó có nhất thiết phải có giá trị cực đại địa phương nào không? Nếu một hàm số có giá trị cực đại địa phương thì nó có nhất thiết phải có giá trị lớn nhất tuyệt đối không? Hãy giải thích lý do cho câu trả lời của bạn.' },
+            { id: 28, category: 'translation', type: 'short', question: 'Determine the area of the region bounded by $y=\\frac{x^{2}}{2}$ and $y=3~sin~x$ and the lines $x=\\pi$ and $x=\\frac{3\\pi}{2}$.', correct: 'Xác định diện tích miền được giới hạn bởi $y=\\frac{x^{2}}{2}$ và $y=3~sin~x$ và các đường thẳng $x=\\pi$ và $x=\\frac{3\\pi}{2}$' },
+            { id: 29, category: 'translation', type: 'short', question: 'Find the area of the bounded region above the graph of $y=\\frac{3|x|}{2}$ and below the parabola $y=1+\\frac{x^{2}}{2}$', correct: 'Tìm diện tích miền bị chặn nằm phía trên đồ thị $y=\\frac{3|x|}{2}$ và phía dưới parabol $y=1+\\frac{x^{2}}{2}$.' },
+
+            // TRANSLATE INTO ENGLISH
+            { id: 30, category: 'translation', type: 'short', question: 'Chứng minh rằng hàm số $f(x)=|x-6|$ không khả vi tại $x=6$. Tìm công thức cho $f^{\\prime}$ và vẽ đồ thị của hàm này.', correct: 'Show that the function $f(x)=|x-6|$ is not differentiable at $x=6$. Find a formula for $f^{\\prime}$ and sketch its graph.' },
+            { id: 31, category: 'translation', type: 'short', question: 'Tính đạo hàm của các hàm số $f(x)=x$, $f(x)=x^{3}$ tại $x=a$.', correct: 'Compute the derivatives of the functions $f(x)=x$ $f(x)=x^{3}$ at $x=a$.' },
+            { id: 32, category: 'translation', type: 'short', question: 'Tìm nguyên hàm của sin 2x.', correct: 'Find an antiderivative of sin 2x.' },
+            { id: 33, category: 'translation', type: 'short', question: 'Tìm hàm số có đạo hàm là $sin~2x-3~cos~x$ và đồ thị của nó qua điểm $(\\pi/4,-1)$.', correct: 'Find the function whose derivative is $sin~2x-3~cos~x$ and whose graph passes through the point $(\\pi/4,-1)$.' },
+            { id: 34, category: 'translation', type: 'short', question: 'Nếu $g(x)=x^{2/3}$ chứng minh rằng $g^{\\prime}(0)$ không tồn tại.', correct: 'If $g(x)=x^{2/3}$, show that $g^{\\prime}(0)$ does not exist.' },
+            { id: 35, category: 'translation', type: 'short', question: 'Trong tất cả các hình chữ nhật có cùng chu vi, chứng minh rằng hình vuông có diện tích lớn nhất.', correct: 'Of all the rectangles with the same perimeter, prove that the square has the largest area.' },
+            { id: 36, category: 'translation', type: 'short', question: 'Chứng minh rằng 0 là điểm tới hạn của hàm số $f(x)=x^{5}$ nhưng không có cực trị địa phương tại 0.', correct: 'Prove that 0 is a critical point of the function $f(x)=x^{5}$ but it does not have a local extremum at 0.' },
+
+            // WRITE SENTENCES
+            { id: 37, category: 'sentence', type: 'short', question: 'interval / be / function / find / in which / decrease / $f(x)=2x^{3}-3x^{2}-12x+19$ / increase.', correct: 'Find the interval in which the function $f(x)=2x^{3}-3x^{2}-12x+19$ is increasing decreasing.' },
+            { id: 38, category: 'sentence', type: 'short', question: 'where / find / function / increase / $f(x)=x^{2}+4x+2$ / interval.', correct: 'Find the interval where the function $f(x)=x^{2}+4x+2$ is increasing.' },
+            { id: 39, category: 'sentence', type: 'short', question: 'derivative / sine function / function / be / cosine.', correct: 'The derivative of the sine function is the cosine function.' },
+            { id: 40, category: 'sentence', type: 'short', question: 'the area / bounded / between / curve / compute / $y=x^{2}$ / $y=2$ / region.', correct: 'Compute the area of the region bounded between the curve $y=x^{2}$ and $y=2$.' },
+            { id: 41, category: 'sentence', type: 'short', question: 'area / enclosed / the region / find / $x=y^{2}$ / $y=x-2$ / be.', correct: 'Find the area of the region enclosed by $x=y^{2}$ and $y=x-2$.' },
+            { id: 42, category: 'sentence', type: 'short', question: 'above the xaxis / the right of x = 1 / under / area / region / find / lie.', correct: 'Find the area of the region lying under the curve, above the x-axis, and to the right of x = 1.' },
+
+            // PROBLEM
+            { id: 43, category: 'math', type: 'short', question: 'Problem: Find the absolute maximum and absolute minimum of the function $f(x)=x^{3}-3x^{2}+1$, $-\\frac{1}{2}\\le x\\le4$.', correct: 'Since f is continuous on $[-1/2,4].$ then f has both an absolute maximum and an absolute minimum on the interval. Differentiating we obtain $f^{\\prime}(x)=3x^{2}-6x=3x(x-2)$. We have the critical point of $f(x)$ as: $x=0$ or $x=2$ The values of f at these critical are $f(0)=1$; $f(2)=-3$. The values of f at the endpoints are $f(-\\frac{1}{2})=\\frac{1}{8}$, $f(4)=17$. Comparing values, we has the absolute maximum value is $f(4)=17$ and the absolute minimum value is $f(2)=-3$.' }
         ];
 
-        // Khởi tạo state
-        // Dùng key mới v4 để tránh xung đột với data cũ chưa có category
-        let localData = JSON.parse(localStorage.getItem('quizDataV4'));
+        let localData = JSON.parse(localStorage.getItem('quizDataV7'));
         if (!localData || localData.length === 0) {
             localData = [...initialData];
-            localStorage.setItem('quizDataV4', JSON.stringify(localData));
+            localStorage.setItem('quizDataV7', JSON.stringify(localData));
         }
         let questions = localData;
         
         let currentTab = 'practice'; 
-        let editingId = null; // Quản lý trạng thái Sửa câu hỏi
+        let editingId = null; 
         
         let practiceState = {
-            status: 'idle', // idle, playing, result
+            status: 'idle',
             list: [],
             currentIndex: 0,
             score: 0,
@@ -251,16 +258,27 @@
         };
 
         const categoryLabels = {
-            'abcd': 'Trắc nghiệm',
             'tf': 'Đúng / Sai',
-            'math': 'Example',
-            'writing': 'Writing',
-            'translation': 'Translation'
+            'fill': 'Điền từ',
+            'translation': 'Dịch thuật',
+            'sentence': 'Viết câu',
+            'math': 'Giải toán'
         };
 
-        // --- CORE FUNCTIONS ---
+        function renderMath() {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true},
+                        {left: "$", right: "$", display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
         function saveData() {
-            localStorage.setItem('quizDataV4', JSON.stringify(questions));
+            localStorage.setItem('quizDataV7', JSON.stringify(questions));
         }
 
         function switchTab(tab) {
@@ -282,8 +300,8 @@
             }
         }
 
-        // THUẬT TOÁN CHẤM ĐIỂM CÂU TRẢ LỜI NGẮN
-        function checkShortAnswer(userStr, correctStr) {
+        // THUẬT TOÁN CHẤM ĐIỂM CÂU TRẢ LỜI NGẮN (DỊCH, VIẾT CÂU) - DỰA THEO SỐ TỪ MATCH
+        function checkShortAnswer(userStr, correctStr, threshold) {
             const normalize = (str) => str.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "").split(/\s+/).filter(w => w.length > 0);
             const userWords = normalize(userStr);
             const correctWords = normalize(correctStr);
@@ -300,7 +318,43 @@
                     userWordsCopy.splice(index, 1);
                 }
             }
-            return (matchCount / correctWords.length) >= 0.5;
+            return (matchCount / correctWords.length) >= threshold;
+        }
+
+        // THUẬT TOÁN CHẤM ĐIỂM CÂU ĐIỀN TỪ - 70% KÝ TỰ, BỎ QUA TOÁN HỌC
+        function checkCharacterSimilarity(userStr, correctStr, threshold) {
+            // Loại bỏ hoàn toàn các chuỗi nằm giữa 2 dấu $ (công thức toán học)
+            const removeMath = (str) => str.replace(/\$[^$]+\$/g, '');
+            // Chỉ giữ lại chữ cái và số (bao gồm tiếng Việt)
+            const normalize = (str) => removeMath(str).toLowerCase().replace(/[^a-z0-9\u00C0-\u024F\u1E00-\u1EFF]/ig, "");
+            
+            const cStr = normalize(correctStr);
+            const uStr = normalize(userStr);
+            
+            if (cStr.length === 0) return true; // Nếu đáp án chỉ có công thức toán thì mặc định đúng phần chữ
+            if (uStr.length === 0) return false;
+            
+            // Tính khoảng cách Levenshtein
+            const dp = Array(cStr.length + 1).fill(null).map(() => Array(uStr.length + 1).fill(0));
+            for (let i = 0; i <= cStr.length; i++) dp[i][0] = i;
+            for (let j = 0; j <= uStr.length; j++) dp[0][j] = j;
+            
+            for (let i = 1; i <= cStr.length; i++) {
+                for (let j = 1; j <= uStr.length; j++) {
+                    const cost = cStr[i - 1] === uStr[j - 1] ? 0 : 1;
+                    dp[i][j] = Math.min(
+                        dp[i - 1][j] + 1,       // deletion
+                        dp[i][j - 1] + 1,       // insertion
+                        dp[i - 1][j - 1] + cost // substitution
+                    );
+                }
+            }
+            
+            const distance = dp[cStr.length][uStr.length];
+            const maxLen = Math.max(cStr.length, uStr.length);
+            const similarity = (maxLen - distance) / maxLen;
+            
+            return similarity >= threshold;
         }
 
         function shuffleArray(array) {
@@ -336,7 +390,6 @@
             
             let html = `
                 <div class="flex gap-4 sm:gap-6 h-full flex-col lg:flex-row fade-in">
-                    <!-- Form Thêm/Sửa Câu Hỏi -->
                     <div class="glass p-4 sm:p-6 rounded-2xl lg:w-1/3 flex flex-col gap-4 bg-white/50 h-fit" id="form-container">
                         <div class="flex justify-between items-center border-b border-sky-200 pb-2">
                             <h2 class="text-lg sm:text-xl font-bold text-sky-800" id="form-title">
@@ -348,17 +401,13 @@
                         <div>
                             <label class="block text-sm font-semibold mb-1 text-slate-600">Chủ đề</label>
                             <select id="q-category" onchange="renderSetupFormFields()" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base">
-                                <option value="abcd">Trắc nghiệm</option>
-                                <option value="tf">Đúng / Sai</option>
-                                <option value="math">Example</option>
-                                <option value="writing">Writing</option>
-                                <option value="translation">Translation</option>
+                                ${Object.keys(categoryLabels).map(k => `<option value="${k}">${categoryLabels[k]}</option>`).join('')}
                             </select>
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-semibold mb-1 text-slate-600">Câu hỏi</label>
-                            <textarea id="q-text" rows="3" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base" placeholder="Nhập nội dung câu hỏi..."></textarea>
+                            <label class="block text-sm font-semibold mb-1 text-slate-600">Câu hỏi (Dùng $ $ cho công thức Toán)</label>
+                            <textarea id="q-text" rows="3" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base" placeholder="Ví dụ: Tính $\\int x dx$"></textarea>
                         </div>
 
                         <div id="dynamic-fields" class="flex flex-col gap-3"></div>
@@ -368,7 +417,6 @@
                         </button>
                     </div>
 
-                    <!-- Danh sách câu hỏi -->
                     <div class="glass p-4 sm:p-6 rounded-2xl lg:w-2/3 flex flex-col bg-white/40 overflow-hidden mt-4 lg:mt-0">
                         <h2 class="text-lg sm:text-xl font-bold text-sky-800 border-b border-sky-200 pb-2 mb-4 flex justify-between items-center">
                             <span><i class="fa-solid fa-list mr-2"></i>Ngân Hàng (${questions.length})</span>
@@ -379,13 +427,14 @@
                         </div>
                         <div class="pt-4 border-t border-sky-200 mt-4 flex justify-between items-center flex-wrap gap-2">
                             <p class="text-xs sm:text-sm text-slate-500"><i class="fa-solid fa-circle-info mr-1"></i>Tự động lưu.</p>
-                            <button onclick="resetToDefault()" class="text-xs sm:text-sm text-red-500 hover:text-red-700 underline font-medium">Khôi phục dữ liệu gốc</button>
+                            <button onclick="resetToDefault()" class="text-xs sm:text-sm text-red-500 hover:text-red-700 underline font-medium">Khôi phục dữ liệu gốc - H</button>
                         </div>
                     </div>
                 </div>
             `;
             container.innerHTML = html;
             renderSetupFormFields();
+            setTimeout(renderMath, 100);
         }
 
         function renderSetupFormFields(qData = null) {
@@ -393,19 +442,7 @@
             const container = document.getElementById('dynamic-fields');
             let html = '';
 
-            if (category === 'abcd') {
-                html = `
-                    <label class="block text-sm font-semibold mb-1 text-slate-600">Lựa chọn (Tích chọn đáp án đúng)</label>
-                    <div class="space-y-2">
-                        ${[0, 1, 2, 3].map(i => `
-                            <div class="flex items-center gap-2">
-                                <input type="radio" name="mcq-correct" value="${i}" ${qData && qData.correct === i ? 'checked' : (i===0 && !qData ? 'checked' : '')} class="w-4 h-4 sm:w-5 sm:h-5 text-sky-500 custom-checkbox rounded-full">
-                                <input type="text" id="mcq-opt-${i}" value="${qData ? qData.options[i] : ''}" class="glass-input w-full p-2 rounded-lg text-sm sm:text-base" placeholder="Lựa chọn ${String.fromCharCode(65 + i)}">
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            } else if (category === 'tf') {
+            if (category === 'tf') {
                 const isTrue = qData ? qData.correct : true;
                 html = `
                     <label class="block text-sm font-semibold mb-2 text-slate-600">Đáp án đúng là:</label>
@@ -420,9 +457,15 @@
                         </label>
                     </div>
                 `;
-            } else { // short answer types
+            } else if (category === 'fill') {
                 html = `
-                    <label class="block text-sm font-semibold mb-1 text-slate-600">Đoạn đáp án đúng (Duyệt khớp >=50% từ khóa)</label>
+                    <label class="block text-sm font-semibold mb-1 text-slate-600">Từ cần điền (Khớp >=70% ký tự. Dùng dấu | nếu có nhiều ô trống. Vd: limits|integration)</label>
+                    <input type="text" id="short-ans" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base" placeholder="Nhập đáp án (ngăn cách bởi dấu |)..." value="${qData ? qData.correct : ''}">
+                `;
+            } else { 
+                // translation, sentence, math (>= 70%)
+                html = `
+                    <label class="block text-sm font-semibold mb-1 text-slate-600">Đoạn đáp án đúng (Duyệt khớp >=70% từ khóa)</label>
                     <textarea id="short-ans" rows="3" class="glass-input w-full p-2.5 rounded-lg text-sm sm:text-base" placeholder="Nhập đáp án chuẩn...">${qData ? qData.correct : ''}</textarea>
                 `;
             }
@@ -431,18 +474,17 @@
 
         function renderQuestionItemSetup(q) {
             let badgeColors = {
-                'abcd': 'bg-blue-100 text-blue-700',
                 'tf': 'bg-purple-100 text-purple-700',
-                'math': 'bg-orange-100 text-orange-700',
-                'writing': 'bg-emerald-100 text-emerald-700',
-                'translation': 'bg-rose-100 text-rose-700'
+                'fill': 'bg-blue-100 text-blue-700',
+                'translation': 'bg-rose-100 text-rose-700',
+                'sentence': 'bg-emerald-100 text-emerald-700',
+                'math': 'bg-orange-100 text-orange-700'
             };
             let badge = `<span class="px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded ${badgeColors[q.category] || 'bg-gray-100'} whitespace-nowrap">${categoryLabels[q.category]}</span>`;
             
             let ansPreview = '';
-            if (q.category === 'abcd') ansPreview = `Đáp án: <strong>${q.options[q.correct]}</strong>`;
-            else if (q.category === 'tf') ansPreview = `Đáp án: <strong>${q.correct ? 'Đúng' : 'Sai'}</strong>`;
-            else ansPreview = `Mẫu: <em>${q.correct}</em>`;
+            if (q.category === 'tf') ansPreview = `Đáp án: <strong>${q.correct ? 'Đúng' : 'Sai'}</strong>`;
+            else ansPreview = `Đáp án: <em>${q.correct}</em>`;
 
             return `
                 <div class="glass p-3 rounded-xl flex justify-between items-start gap-3 bg-white/60 hover:bg-white/90 transition shadow-sm" id="item-${q.id}">
@@ -465,7 +507,6 @@
             `;
         }
 
-        // Action: Edit
         function editQuestion(id) {
             editingId = id;
             const q = questions.find(x => x.id === id);
@@ -481,7 +522,6 @@
             document.getElementById('q-text').value = q.question;
             renderSetupFormFields(q);
 
-            // Highlight the editing item visually
             document.querySelectorAll('[id^="item-"]').forEach(el => el.classList.remove('border-2', 'border-emerald-400'));
             const item = document.getElementById(`item-${id}`);
             if(item) {
@@ -489,7 +529,6 @@
                 item.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
             
-            // Scroll to form on mobile
             if(window.innerWidth < 1024) {
                 document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' });
             }
@@ -497,12 +536,12 @@
 
         function cancelEdit() {
             editingId = null;
-            renderSetup(); // Reset form & list
+            renderSetup(); 
         }
 
         function saveQuestion() {
             const category = document.getElementById('q-category').value;
-            let type = (category === 'abcd') ? 'mcq' : (category === 'tf' ? 'tf' : 'short');
+            let type = (category === 'tf') ? 'tf' : 'short';
             const text = document.getElementById('q-text').value.trim();
 
             if (!text) return alert('Vui lòng nhập nội dung câu hỏi!');
@@ -514,16 +553,7 @@
                 question: text 
             };
 
-            if (category === 'abcd') {
-                const options = [];
-                for (let i = 0; i < 4; i++) {
-                    const optVal = document.getElementById(`mcq-opt-${i}`).value.trim();
-                    if (!optVal) return alert('Vui lòng nhập đầy đủ 4 lựa chọn ABCD!');
-                    options.push(optVal);
-                }
-                newQ.options = options;
-                newQ.correct = parseInt(document.querySelector('input[name="mcq-correct"]:checked').value);
-            } else if (category === 'tf') {
+            if (category === 'tf') {
                 newQ.correct = document.querySelector('input[name="tf-correct"]:checked').value === 'true';
             } else {
                 const ans = document.getElementById('short-ans').value.trim();
@@ -560,7 +590,6 @@
             }
         }
 
-
         // --- RENDER: PRACTICE TAB ---
         function renderPractice() {
             const container = document.getElementById('main-content');
@@ -571,7 +600,7 @@
                         <div class="glass p-6 md:p-10 rounded-3xl max-w-xl w-full bg-white/50 shadow-sm">
                             <div class="text-sky-500 mb-4"><i class="fa-solid fa-rocket text-5xl md:text-6xl"></i></div>
                             <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">Bắt Đầu Ôn Tập</h2>
-                            <p class="text-slate-600 mb-6 text-sm md:text-base">Chọn các chủ đề bạn muốn luyện tập:</p>
+                            <p class="text-slate-600 mb-6 text-sm md:text-base">Chọn các chủ đề bạn muốn luyện tập</p>
                             
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-left mb-8 bg-white/40 p-4 rounded-xl border border-white/60">
                                 ${Object.keys(categoryLabels).map(cat => `
@@ -593,18 +622,8 @@
                 const progress = ((practiceState.currentIndex) / practiceState.list.length) * 100;
 
                 let inputArea = '';
-                if (q.type === 'mcq') {
-                    inputArea = `
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-6">
-                            ${q.options.map((opt, i) => `
-                                <button onclick="submitAnswer(${i}, this)" class="glass-btn p-3 md:p-4 rounded-xl text-left hover:bg-sky-50 transition font-medium text-slate-700 text-sm md:text-base flex items-center">
-                                    <span class="shrink-0 inline-flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-sky-100 text-sky-700 mr-3 font-bold text-xs md:text-sm">${String.fromCharCode(65 + i)}</span>
-                                    <span>${opt}</span>
-                                </button>
-                            `).join('')}
-                        </div>
-                    `;
-                } else if (q.type === 'tf') {
+                
+                if (q.type === 'tf') {
                     inputArea = `
                         <div class="flex gap-4 md:gap-6 mt-8 justify-center">
                             <button onclick="submitAnswer(true, this)" class="glass-btn p-4 md:p-6 rounded-2xl w-32 md:w-40 text-center hover:bg-green-50 transition group flex flex-col items-center">
@@ -614,6 +633,20 @@
                             <button onclick="submitAnswer(false, this)" class="glass-btn p-4 md:p-6 rounded-2xl w-32 md:w-40 text-center hover:bg-red-50 transition group flex flex-col items-center">
                                 <i class="fa-solid fa-xmark text-3xl md:text-4xl text-red-500 mb-2 group-hover:scale-110 transition-transform"></i>
                                 <div class="font-bold text-lg md:text-xl text-slate-700 group-hover:text-red-700 transition">Sai</div>
+                            </button>
+                        </div>
+                    `;
+                } else if (q.category === 'fill') {
+                    const blanksCount = q.correct.split('|').length;
+                    let inputsHtml = '';
+                    for(let i=0; i<blanksCount; i++) {
+                        inputsHtml += `<input type="text" class="practice-fill-input glass-input w-full p-3 md:p-4 rounded-xl text-base md:text-lg text-slate-700 mb-2" placeholder="${blanksCount > 1 ? `Ô trống ${i + 1}...` : 'Nhập từ cần điền...'}" autocomplete="off" onkeypress="handleEnter(event, this)">`;
+                    }
+                    inputArea = `
+                        <div class="mt-6">
+                            ${inputsHtml}
+                            <button onclick="submitShortAnswer(this)" class="mt-2 md:mt-3 w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 rounded-xl shadow-md transition text-sm md:text-base">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> Check đáp án
                             </button>
                         </div>
                     `;
@@ -654,11 +687,11 @@
                         <!-- Question Card -->
                         <div class="glass p-5 md:p-10 rounded-3xl bg-white/60 flex-grow shadow-sm relative overflow-hidden" id="question-card">
                             <div class="text-[10px] md:text-xs font-bold uppercase tracking-wider text-sky-500 mb-3 flex items-center gap-1.5 border border-sky-200 bg-sky-50 w-fit px-3 py-1 rounded-full">
-                                <i class="fa-solid ${q.category === 'abcd' ? 'fa-list-ul' : (q.category === 'tf' ? 'fa-scale-balanced' : 'fa-pen-clip')}"></i>
+                                <i class="fa-solid ${q.category === 'tf' ? 'fa-scale-balanced' : (q.category === 'fill' ? 'fa-pen' : 'fa-pen-clip')}"></i>
                                 ${categoryLabels[q.category]}
                             </div>
                             
-                            <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-slate-800 leading-relaxed md:leading-snug break-words">
+                            <h3 class="text-lg sm:text-xl md:text-2xl font-semibold text-slate-800 leading-relaxed py-2 break-words">
                                 ${q.question}
                             </h3>
                             
@@ -668,6 +701,7 @@
                         </div>
                     </div>
                 `;
+                setTimeout(renderMath, 100);
             } else if (practiceState.status === 'result') {
                 const percentage = Math.round((practiceState.score / practiceState.list.length) * 100) || 0;
                 let rankMsg = percentage >= 80 ? 'Xuất sắc! 🎉' : (percentage >= 50 ? 'Khá tốt! 👍' : 'Cần cố gắng hơn! 💪');
@@ -684,7 +718,6 @@
                             <div class="flex justify-center mb-6 relative z-10">
                                 <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-8 border-sky-100 flex items-center justify-center relative bg-white/50 backdrop-blur-sm">
                                     <svg class="absolute top-0 left-0 w-full h-full transform -rotate-90">
-                                        <!-- Circumference approx 360 cho r=56, 427 cho r=68. Tinh chinh lai theo size -->
                                         <circle cx="50%" cy="50%" r="44%" fill="none" stroke="currentColor" stroke-width="8" class="text-sky-500" stroke-dasharray="280" stroke-dashoffset="${280 - (280 * percentage / 100)}" stroke-linecap="round"></circle>
                                     </svg>
                                     <div class="text-center">
@@ -708,36 +741,25 @@
         }
 
         function startPractice() {
-            // Lấy danh sách category được tick
             const selectedCats = Array.from(document.querySelectorAll('.cat-filter:checked')).map(cb => cb.value);
             
             if (selectedCats.length === 0) {
                 return alert("Vui lòng chọn ít nhất một chủ đề để ôn tập!");
             }
 
-            // Lọc câu hỏi theo category
             let filteredList = questions.filter(q => selectedCats.includes(q.category));
 
             if (filteredList.length === 0) {
-                return alert("Không có câu hỏi nào thuộc các chủ đề bạn đã chọn. Hãy thêm ở phần Thiết Lập.");
+                return alert("Không có câu hỏi nào thuộc các chủ đề bạn đã chọn.");
             }
 
-            // Xáo trộn & gom nhóm (ABCD -> Đúng/Sai -> Math/Writing/Translation)
-            let mcqList = filteredList.filter(q => q.type === 'mcq');
             let tfList = filteredList.filter(q => q.type === 'tf');
             let shortList = filteredList.filter(q => q.type === 'short');
 
-            shuffleArray(mcqList);
             shuffleArray(tfList);
             shuffleArray(shortList);
 
-            mcqList.forEach(q => {
-                let correctText = q.options[q.correct];
-                shuffleArray(q.options);
-                q.correct = q.options.indexOf(correctText);
-            });
-
-            practiceState.list = [...mcqList, ...tfList, ...shortList];
+            practiceState.list = [...tfList, ...shortList];
             practiceState.currentIndex = 0;
             practiceState.score = 0;
             practiceState.status = 'playing';
@@ -746,8 +768,15 @@
             startTimer();
         }
 
-        // Logic xử lý khi chọn/gửi đáp án
         let isAnswering = false;
+
+        function handleEnter(e, inputElem) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const btn = inputElem.parentElement.querySelector('button');
+                submitShortAnswer(btn);
+            }
+        }
 
         function submitAnswer(userAnswer, btnElement) {
             if(isAnswering) return;
@@ -757,13 +786,35 @@
 
         function submitShortAnswer(btnElement) {
             if(isAnswering) return;
-            const inputVal = document.getElementById('practice-short-input').value;
-            if(!inputVal.trim()) {
-                alert("Vui lòng nhập câu trả lời!");
-                return;
+            
+            const q = practiceState.list[practiceState.currentIndex];
+            let userAns = "";
+
+            if (q.category === 'fill') {
+                const inputs = document.querySelectorAll('.practice-fill-input');
+                let values = [];
+                let hasEmpty = false;
+                inputs.forEach(input => {
+                    const val = input.value.trim();
+                    if (!val) hasEmpty = true;
+                    values.push(val);
+                });
+                if (hasEmpty) {
+                    alert("Vui lòng điền đầy đủ các ô trống!");
+                    return;
+                }
+                userAns = values.join('|');
+            } else {
+                const inputVal = document.getElementById('practice-short-input').value;
+                if(!inputVal.trim()) {
+                    alert("Vui lòng nhập câu trả lời!");
+                    return;
+                }
+                userAns = inputVal.trim();
             }
+
             isAnswering = true;
-            processAnswerResult(inputVal, btnElement);
+            processAnswerResult(userAns, btnElement);
         }
 
         function processAnswerResult(userAns, btnElement) {
@@ -772,10 +823,25 @@
             const feedbackArea = document.getElementById('feedback-area');
             let isCorrect = false;
 
-            if (q.type === 'mcq' || q.type === 'tf') {
+            if (q.type === 'tf') {
                 isCorrect = (userAns === q.correct);
+            } else if (q.category === 'fill') {
+                // Kiểm tra khớp từng ô trống (70% ký tự, bỏ qua toán học)
+                const correctArr = q.correct.split('|');
+                const userArr = userAns.split('|');
+                isCorrect = true;
+                
+                for(let i=0; i<correctArr.length; i++) {
+                    const cStr = correctArr[i] || "";
+                    const uStr = userArr[i] || "";
+                    
+                    if (!checkCharacterSimilarity(uStr, cStr, 0.7)) {
+                        isCorrect = false;
+                        break;
+                    }
+                }
             } else if (q.type === 'short') {
-                isCorrect = checkShortAnswer(userAns, q.correct);
+                isCorrect = checkShortAnswer(userAns, q.correct, 0.7); // 70% khớp từ khóa
             }
 
             if (isCorrect) practiceState.score++;
@@ -800,19 +866,27 @@
                     </p>
             `;
 
-            if (!isCorrect && (q.type === 'mcq' || q.type === 'tf')) {
-                let displayAns = q.type === 'mcq' ? q.options[q.correct] : (q.correct ? 'Đúng (True)' : 'Sai (False)');
-                feedbackHtml += `<p class="text-xs md:text-sm mt-2"><span class="font-semibold">Đáp án đúng:</span> ${displayAns}</p>`;
+            if (!isCorrect && q.type === 'tf') {
+                feedbackHtml += `<p class="text-xs md:text-sm mt-2"><span class="font-semibold">Đáp án đúng:</span> ${q.correct ? 'Đúng (True)' : 'Sai (False)'}</p>`;
+            } else if (q.category === 'fill') {
+                const correctArr = q.correct.split('|');
+                const displayAns = correctArr.map((ans, idx) => correctArr.length > 1 ? `Ô ${idx+1}: <b>${ans.trim()}</b>` : `<b>${ans.trim()}</b>`).join(' <br> ');
+                
+                feedbackHtml += `<div class="mt-2 bg-white/60 p-2 md:p-3 rounded-lg border border-white max-h-32 overflow-y-auto">
+                    <span class="font-semibold text-slate-700 text-xs md:text-sm block mb-1">Đáp án đúng:</span>
+                    <p class="text-xs md:text-sm text-slate-600">${displayAns}</p>
+                </div>`;
+                feedbackHtml += `<p class="text-[10px] md:text-xs text-slate-500 mt-1.5 italic">* Khớp >=70% ký tự (bỏ qua công thức toán).</p>`;
             } else if (q.type === 'short') {
                 feedbackHtml += `<div class="mt-2 bg-white/60 p-2 md:p-3 rounded-lg border border-white max-h-32 overflow-y-auto">
                     <span class="font-semibold text-slate-700 text-xs md:text-sm block mb-1">Đáp án mẫu:</span>
                     <p class="text-xs md:text-sm text-slate-600">${q.correct}</p>
                 </div>`;
-                feedbackHtml += `<p class="text-[10px] md:text-xs text-slate-500 mt-1.5 italic">* Thuật toán: Khớp ${isCorrect ? 'từ 50%' : 'dưới 50%'} từ khóa so với mẫu.</p>`;
+                feedbackHtml += `<p class="text-[10px] md:text-xs text-slate-500 mt-1.5 italic">* Khớp ${isCorrect ? '>=70%' : '<70%'} từ khóa.</p>`;
             }
 
             feedbackHtml += `
-                    <button onclick="nextQuestion()" class="mt-3 md:mt-4 px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-semibold w-full transition text-sm md:text-base flex items-center justify-center gap-2">
+                    <button onclick="nextQuestion()" id="btn-next-q" class="mt-3 md:mt-4 px-6 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-semibold w-full transition text-sm md:text-base flex items-center justify-center gap-2">
                         Tiếp tục <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </div>
@@ -821,12 +895,16 @@
 
             const allBtns = card.querySelectorAll('button:not(#feedback-area button)');
             allBtns.forEach(b => b.disabled = true);
-            const textarea = card.querySelector('textarea');
-            if(textarea) textarea.disabled = true;
+            const inputField = card.querySelector('input, textarea');
+            if(inputField) inputField.disabled = true;
 
             setTimeout(() => {
                 card.classList.remove('correct-anim', 'wrong-anim');
+                document.getElementById('btn-next-q').focus(); // Auto focus to press Enter to continue
             }, 400);
+            
+            // Render Math inside feedback area if any
+            setTimeout(renderMath, 50); 
         }
 
         function nextQuestion() {
@@ -839,65 +917,7 @@
             renderPractice();
         }
 
-        // --- INIT ---
-        renderPractice();
-
-    </script>
-     <!-- BẠN COPY PHẦN HTML NÀY ĐẶT VÀO TRONG THẺ <body> CỦA FILE GỐC (Ưu tiên để dưới cùng, trước thẻ đóng </body>) -->
-    
-    <!-- Welcome Popup Overlay -->
-    <div id="welcome-popup" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 p-4">
-        
-        <!-- Welcome Popup Modal -->
-        <div id="welcome-modal" class="glass w-full max-w-md bg-white/70 p-6 md:p-8 rounded-[2rem] shadow-2xl transform scale-95 transition-transform duration-300 relative">
-            
-            <!-- Icon Header -->
-            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2">
-                <div class="w-20 h-20 bg-gradient-to-br from-sky-400 to-blue-500 rounded-full flex items-center justify-center shadow-lg border-4 border-white">
-                    <i class="fa-solid fa-book-open-reader text-3xl text-white"></i>
-                </div>
-            </div>
-
-            <!-- Content -->
-            <div class="mt-8 text-center">
-                <h2 class="text-2xl font-bold text-slate-800 mb-2">Chào mừng bạn! 👋</h2>
-                <p class="text-slate-600 text-sm mb-6">Website hỗ trợ bạn ôn tập Anh Văn Chuyên Môn.</p>
-                
-                <div class="space-y-4 text-left">
-                    <!-- Hướng dẫn Ôn tập -->
-                    <div class="bg-white/50 p-4 rounded-xl border border-white">
-                        <div class="flex items-start gap-3">
-                            <div class="mt-1 text-sky-500"><i class="fa-solid fa-gamepad text-xl"></i></div>
-                            <div>
-                                <h3 class="font-bold text-slate-800">Cách Ôn Tập</h3>
-                                <p class="text-sm text-slate-600">Chọn các chủ đề bạn muốn học (Trắc nghiệm, Đúng/Sai, Writing...) và nhấn bắt đầu. Hệ thống sẽ trộn câu hỏi và tính giờ tự động.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hướng dẫn Thiết lập -->
-                    <div class="bg-white/50 p-4 rounded-xl border border-white">
-                        <div class="flex items-start gap-3">
-                            <div class="mt-1 text-emerald-500"><i class="fa-solid fa-database text-xl"></i></div>
-                            <div>
-                                <h3 class="font-bold text-slate-800">Thiết Lập Dữ Liệu</h3>
-                                <p class="text-sm text-slate-600">Chuyển sang tab <b>Thiết Lập</b> để thêm mới, sửa hoặc xóa câu hỏi. Dữ liệu của bạn được lưu ngay trên trình duyệt.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Nút Đóng -->
-                <button onclick="closeWelcomePopup()" class="mt-8 w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3.5 rounded-xl shadow-md transition-all transform hover:scale-[1.02] active:scale-95">
-                    Đã Hiểu & Bắt Đầu
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- BẠN COPY PHẦN JAVASCRIPT NÀY VÀO THẺ <script> CỦA FILE GỐC -->
-    <script>
-        // Hàm hiển thị Popup
+        // --- INIT & POPUP ---
         function showWelcomePopup() {
             const popup = document.getElementById('welcome-popup');
             const modal = document.getElementById('welcome-modal');
@@ -908,7 +928,6 @@
             }
         }
 
-        // Hàm đóng Popup và lưu trạng thái để không hiện lại
         function closeWelcomePopup() {
             const popup = document.getElementById('welcome-popup');
             const modal = document.getElementById('welcome-modal');
@@ -916,25 +935,18 @@
                 popup.classList.add('opacity-0', 'pointer-events-none');
                 modal.classList.remove('scale-100');
                 modal.classList.add('scale-95');
-                
-                // Lưu vào LocalStorage để đánh dấu là đã xem
-                localStorage.setItem('hasSeenTutorialV1', 'true');
+                localStorage.setItem('hasSeenUpdateV7', 'true');
             }
         }
 
-        // Tự động kiểm tra và hiển thị khi trang vừa tải xong
         window.addEventListener('DOMContentLoaded', () => {
-            // Kiểm tra xem người dùng đã từng đóng popup này chưa
-            const hasSeen = localStorage.getItem('hasSeenTutorialV1');
-            
+            const hasSeen = localStorage.getItem('hasSeenUpdateV7');
             if (!hasSeen) {
-                // Thêm độ trễ nhỏ (500ms) để hiện ra mượt mà hơn sau khi trang đã load
                 setTimeout(showWelcomePopup, 500);
             }
-            
-            // MẸO DEV: Nếu bạn muốn test lại popup nhiều lần, hãy bỏ comment dòng dưới đây:
-            // localStorage.removeItem('hasSeenTutorialV1'); 
+            renderPractice();
         });
+
     </script>
 </body>
 </html>
